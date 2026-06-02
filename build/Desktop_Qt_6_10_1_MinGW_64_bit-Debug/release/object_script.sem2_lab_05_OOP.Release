@@ -1,0 +1,15 @@
+release/elevatorcabin.o
+release/elevatorcontroller.o
+release/elevatordoors.o
+release/elevatorrequest.o
+release/elevatorscheduler.o
+release/elevatorsystem.o
+release/main.o
+release/mainwindow.o
+release/shaftview.o
+release/moc_elevatorcabin.o
+release/moc_elevatorcontroller.o
+release/moc_elevatordoors.o
+release/moc_elevatorsystem.o
+release/moc_mainwindow.o
+release/moc_shaftview.o

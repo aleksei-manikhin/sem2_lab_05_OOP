@@ -31,9 +31,9 @@ private:
     int nearestAnyFloor(int currentFloor) const;
     int nearestFloorInDirection(int currentFloor, Direction direction) const;
 
-    int m_minFloor = 1;
-    int m_maxFloor = 5;
-    std::vector<ElevatorRequest> m_requests;
+    int minFloor = 1;
+    int maxFloor = 5;
+    std::vector<ElevatorRequest> requests;
 };
 
 #endif // ELEVATORSCHEDULER_H

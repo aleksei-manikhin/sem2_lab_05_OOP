@@ -9,16 +9,26 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    elevatorcabin.cpp \
+    elevatorcontroller.cpp \
+    elevatordoors.cpp \
     elevatorrequest.cpp \
     elevatorscheduler.cpp \
+    elevatorsystem.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    shaftview.cpp
 
 HEADERS += \
+    elevatorcabin.h \
+    elevatorcontroller.h \
+    elevatordoors.h \
     elevatorenums.h \
     elevatorrequest.h \
     elevatorscheduler.h \
-    mainwindow.h
+    elevatorsystem.h \
+    mainwindow.h \
+    shaftview.h
 
 FORMS += \
     mainwindow.ui

@@ -3,8 +3,8 @@
 #include <QtGlobal>
 
 ElevatorScheduler::ElevatorScheduler(int minFloor, int maxFloor)
-    : m_minFloor(minFloor),
-      m_maxFloor(maxFloor)
+    : minFloor(minFloor),
+      maxFloor(maxFloor)
 {
 }
 
@@ -28,13 +28,13 @@ bool ElevatorScheduler::addRequest(const ElevatorRequest &request)
         return false;
     }
 
-    m_requests.push_back(request);
+    requests.push_back(request);
     return true;
 }
 
 bool ElevatorScheduler::hasRequests() const
 {
-    return !m_requests.empty();
+    return !requests.empty();
 }
 
 bool ElevatorScheduler::hasRequestForButton(const ElevatorRequest &request) const
@@ -46,7 +46,7 @@ bool ElevatorScheduler::shouldStopAt(int floor, Direction travelDirection) const
 {
     const bool noMoreAhead = !hasRequestsAhead(floor, travelDirection);
 
-    for (const ElevatorRequest &request : m_requests) {
+    for (const ElevatorRequest &request : requests) {
         if (request.shouldStopAt(floor, travelDirection, noMoreAhead)) {
             return true;
         }
@@ -94,10 +94,10 @@ std::vector<ElevatorRequest> ElevatorScheduler::takeServedAt(int floor, Directio
     std::vector<ElevatorRequest> served;
     const bool noMoreAhead = !hasRequestsAhead(floor, travelDirection);
 
-    for (auto it = m_requests.begin(); it != m_requests.end();) {
+    for (auto it = requests.begin(); it != requests.end();) {
         if (it->shouldStopAt(floor, travelDirection, noMoreAhead)) {
             served.push_back(*it);
-            it = m_requests.erase(it);
+            it = requests.erase(it);
         } else {
             ++it;
         }
@@ -108,12 +108,12 @@ std::vector<ElevatorRequest> ElevatorScheduler::takeServedAt(int floor, Directio
 
 std::vector<ElevatorRequest> ElevatorScheduler::getRequests() const
 {
-    return m_requests;
+    return requests;
 }
 
 bool ElevatorScheduler::isValidFloor(int floor) const
 {
-    return floor >= m_minFloor && floor <= m_maxFloor;
+    return floor >= minFloor && floor <= maxFloor;
 }
 
 bool ElevatorScheduler::isValidRequest(const ElevatorRequest &request) const
@@ -127,11 +127,11 @@ bool ElevatorScheduler::isValidRequest(const ElevatorRequest &request) const
     }
 
     if (request.getDirection() == Direction::Up) {
-        return request.getFloor() < m_maxFloor;
+        return request.getFloor() < maxFloor;
     }
 
     if (request.getDirection() == Direction::Down) {
-        return request.getFloor() > m_minFloor;
+        return request.getFloor() > minFloor;
     }
 
     return false;
@@ -139,7 +139,7 @@ bool ElevatorScheduler::isValidRequest(const ElevatorRequest &request) const
 
 bool ElevatorScheduler::containsRequest(const ElevatorRequest &request) const
 {
-    for (const ElevatorRequest &storedRequest : m_requests) {
+    for (const ElevatorRequest &storedRequest : requests) {
         if (storedRequest.isSameButtonAs(request)) {
             return true;
         }
@@ -150,7 +150,7 @@ bool ElevatorScheduler::containsRequest(const ElevatorRequest &request) const
 
 bool ElevatorScheduler::hasRequestsAhead(int currentFloor, Direction direction) const
 {
-    for (const ElevatorRequest &request : m_requests) {
+    for (const ElevatorRequest &request : requests) {
         if (request.isAheadOf(currentFloor, direction)) {
             return true;
         }
@@ -162,9 +162,9 @@ bool ElevatorScheduler::hasRequestsAhead(int currentFloor, Direction direction) 
 int ElevatorScheduler::nearestAnyFloor(int currentFloor) const
 {
     int nearest = currentFloor;
-    int bestDistance = m_maxFloor - m_minFloor + 1;
+    int bestDistance = maxFloor - minFloor + 1;
 
-    for (const ElevatorRequest &request : m_requests) {
+    for (const ElevatorRequest &request : requests) {
         const int distance = qAbs(request.getFloor() - currentFloor);
         if (distance < bestDistance) {
             nearest = request.getFloor();
@@ -178,9 +178,9 @@ int ElevatorScheduler::nearestAnyFloor(int currentFloor) const
 int ElevatorScheduler::nearestFloorInDirection(int currentFloor, Direction direction) const
 {
     int nearest = currentFloor;
-    int bestDistance = m_maxFloor - m_minFloor + 1;
+    int bestDistance = maxFloor - minFloor + 1;
 
-    for (const ElevatorRequest &request : m_requests) {
+    for (const ElevatorRequest &request : requests) {
         if (request.isAheadOf(currentFloor, direction)) {
             const int distance = qAbs(request.getFloor() - currentFloor);
             if (distance < bestDistance) {

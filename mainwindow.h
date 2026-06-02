@@ -1,13 +1,20 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "elevatorenums.h"
+
 #include <QMainWindow>
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
+
+class ElevatorSystem;
+class QPushButton;
+class ShaftView;
 
 class MainWindow : public QMainWindow
 {
@@ -18,6 +25,30 @@ public:
     ~MainWindow();
 
 private:
+    void setupModel();
+    void setupButtonMaps();
+    void connectCabinButtons();
+    void connectCallButtons();
+    void connectDoorButtons();
+    void connectSystemSignals();
+    void initializeView();
+
+    void setButtonChecked(QPushButton *button, bool checked);
+    void setCabinButtonLight(int floor, bool enabled);
+    void setFloorCallLight(int floor, Direction direction, bool enabled);
+    void setDoorControlsEnabled(CabinState state);
+    void appendLog(const QString &message);
+
+    QString directionText(Direction direction) const;
+    QString cabinStateText(CabinState state) const;
+    QString doorStateText(DoorState state) const;
+    QString controllerStateText(ControllerState state) const;
+
     Ui::MainWindow *ui;
+    ElevatorSystem *system = nullptr;
+    ShaftView *shaftView = nullptr;
+    QMap<int, QPushButton *> cabinButtons;
+    QMap<int, QPushButton *> callUpButtons;
+    QMap<int, QPushButton *> callDownButtons;
 };
 #endif // MAINWINDOW_H

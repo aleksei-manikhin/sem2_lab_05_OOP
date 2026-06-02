@@ -24,9 +24,9 @@ public:
     bool shouldStopAt(int elevatorFloor, Direction travelDirection, bool noMoreAhead) const;
 
 private:
-    int m_floor = 1;
-    RequestType m_type = RequestType::Cabin;
-    Direction m_direction = Direction::Idle;
+    int floorNumber = 1;
+    RequestType requestType = RequestType::Cabin;
+    Direction requestDirection = Direction::Idle;
 };
 
 #endif // ELEVATORREQUEST_H

@@ -1,9 +1,9 @@
 #include "elevatorrequest.h"
 
 ElevatorRequest::ElevatorRequest(int floor, RequestType type, Direction direction)
-    : m_floor(floor),
-      m_type(type),
-      m_direction(direction)
+    : floorNumber(floor),
+      requestType(type),
+      requestDirection(direction)
 {
 }
 
@@ -19,44 +19,44 @@ ElevatorRequest ElevatorRequest::floorCall(int floor, Direction direction)
 
 int ElevatorRequest::getFloor() const
 {
-    return m_floor;
+    return floorNumber;
 }
 
 RequestType ElevatorRequest::getType() const
 {
-    return m_type;
+    return requestType;
 }
 
 Direction ElevatorRequest::getDirection() const
 {
-    return m_direction;
+    return requestDirection;
 }
 
 bool ElevatorRequest::isCabinRequest() const
 {
-    return m_type == RequestType::Cabin;
+    return requestType == RequestType::Cabin;
 }
 
 bool ElevatorRequest::isFloorCall() const
 {
-    return m_type == RequestType::FloorCall;
+    return requestType == RequestType::FloorCall;
 }
 
 bool ElevatorRequest::isSameButtonAs(const ElevatorRequest &other) const
 {
-    return m_floor == other.m_floor
-            && m_type == other.m_type
-            && m_direction == other.m_direction;
+    return floorNumber == other.floorNumber
+            && requestType == other.requestType
+            && requestDirection == other.requestDirection;
 }
 
 bool ElevatorRequest::isAheadOf(int currentFloor, Direction travelDirection) const
 {
     if (travelDirection == Direction::Up) {
-        return m_floor > currentFloor;
+        return floorNumber > currentFloor;
     }
 
     if (travelDirection == Direction::Down) {
-        return m_floor < currentFloor;
+        return floorNumber < currentFloor;
     }
 
     return false;
@@ -65,13 +65,13 @@ bool ElevatorRequest::isAheadOf(int currentFloor, Direction travelDirection) con
 bool ElevatorRequest::canBeServedWhileMoving(Direction travelDirection) const
 {
     return isCabinRequest()
-            || m_direction == travelDirection
+            || requestDirection == travelDirection
             || travelDirection == Direction::Idle;
 }
 
 bool ElevatorRequest::shouldStopAt(int elevatorFloor, Direction travelDirection, bool noMoreAhead) const
 {
-    if (m_floor != elevatorFloor) {
+    if (floorNumber != elevatorFloor) {
         return false;
     }
 
