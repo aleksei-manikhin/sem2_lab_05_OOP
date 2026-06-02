@@ -1,15 +1,18 @@
 #include "elevatorsystem.h"
+#include "floorcatalog.h"
 
 ElevatorSystem::ElevatorSystem(QObject *parent)
     : QObject(parent),
-      controller(new ElevatorController(1, 5, this))
+      controller(new ElevatorController(FloorCatalog::minPosition(),
+                                        FloorCatalog::maxPosition(),
+                                        this))
 {
     connectController();
 }
 
 int ElevatorSystem::currentFloor() const
 {
-    return controller->currentFloor();
+    return toFloorNumber(controller->currentFloor());
 }
 
 Direction ElevatorSystem::direction() const
@@ -24,12 +27,12 @@ ControllerState ElevatorSystem::state() const
 
 void ElevatorSystem::requestCabinFloor(int floor)
 {
-    controller->addCabinRequest(floor);
+    controller->addCabinRequest(toPosition(floor));
 }
 
 void ElevatorSystem::requestFloorCall(int floor, Direction direction)
 {
-    controller->addFloorCall(floor, direction);
+    controller->addFloorCall(toPosition(floor), direction);
 }
 
 void ElevatorSystem::requestDoorsOpen()
@@ -44,12 +47,28 @@ void ElevatorSystem::requestDoorsClose()
 
 void ElevatorSystem::connectController()
 {
+    connectButtonSignals();
+    connectStateSignals();
+}
+
+void ElevatorSystem::connectButtonSignals()
+{
     connect(controller, &ElevatorController::cabinButtonLightChanged,
-            this, &ElevatorSystem::cabinButtonLightChanged);
+            this, [this](int position, bool enabled) {
+        emit cabinButtonLightChanged(toFloorNumber(position), enabled);
+    });
     connect(controller, &ElevatorController::floorCallLightChanged,
-            this, &ElevatorSystem::floorCallLightChanged);
+            this, [this](int position, Direction direction, bool enabled) {
+        emit floorCallLightChanged(toFloorNumber(position), direction, enabled);
+    });
     connect(controller, &ElevatorController::currentFloorChanged,
-            this, &ElevatorSystem::currentFloorChanged);
+            this, [this](int position) {
+        emit currentFloorChanged(toFloorNumber(position));
+    });
+}
+
+void ElevatorSystem::connectStateSignals()
+{
     connect(controller, &ElevatorController::cabinStateChanged,
             this, &ElevatorSystem::cabinStateChanged);
     connect(controller, &ElevatorController::doorStateChanged,
@@ -59,7 +78,19 @@ void ElevatorSystem::connectController()
     connect(controller, &ElevatorController::directionChanged,
             this, &ElevatorSystem::directionChanged);
     connect(controller, &ElevatorController::targetFloorChanged,
-            this, &ElevatorSystem::targetFloorChanged);
+            this, [this](int position) {
+        emit targetFloorChanged(toFloorNumber(position));
+    });
     connect(controller, &ElevatorController::logMessage,
             this, &ElevatorSystem::logMessage);
+}
+
+int ElevatorSystem::toPosition(int floorNumber) const
+{
+    return FloorCatalog::positionFromNumber(floorNumber);
+}
+
+int ElevatorSystem::toFloorNumber(int position) const
+{
+    return FloorCatalog::numberFromPosition(position);
 }

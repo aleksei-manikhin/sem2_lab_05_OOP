@@ -35,6 +35,10 @@ signals:
 
 private:
     void connectController();
+    void connectButtonSignals();
+    void connectStateSignals();
+    int toPosition(int floorNumber) const;
+    int toFloorNumber(int position) const;
 
     ElevatorController *controller = nullptr;
 };

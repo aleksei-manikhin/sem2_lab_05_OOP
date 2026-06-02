@@ -4,6 +4,7 @@ debug/elevatordoors.o
 debug/elevatorrequest.o
 debug/elevatorscheduler.o
 debug/elevatorsystem.o
+debug/floorcatalog.o
 debug/main.o
 debug/mainwindow.o
 debug/shaftview.o

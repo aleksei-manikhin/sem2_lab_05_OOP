@@ -1,4 +1,5 @@
 #include "elevatorcontroller.h"
+#include "floorcatalog.h"
 
 #include <QDebug>
 
@@ -92,7 +93,8 @@ void ElevatorController::addRequest(const ElevatorRequest &request)
         return;
     }
 
-    emit logMessage(QString("Request accepted for floor %1").arg(request.getFloor()));
+    emit logMessage(QString("Request accepted for floor %1")
+                    .arg(FloorCatalog::numberFromPosition(request.getFloor())));
 
     if (request.isCabinRequest()) {
         emit cabinButtonLightChanged(request.getFloor(), true);
@@ -140,7 +142,8 @@ void ElevatorController::startMovingToNextTarget()
     targetFloor = scheduler.nextTarget(currentFloor(), currentDirection);
     emit targetFloorChanged(targetFloor);
     setDirection(scheduler.nextDirection(currentFloor(), currentDirection));
-    emit logMessage(QString("New target floor is %1").arg(targetFloor));
+    emit logMessage(QString("New target floor is %1")
+                    .arg(FloorCatalog::numberFromPosition(targetFloor)));
 
     setState(ControllerState::Moving);
     cabin->move(currentDirection);
@@ -150,7 +153,8 @@ void ElevatorController::stopAtCurrentFloor()
 {
     cabin->stop();
     setState(ControllerState::TargetReached);
-    emit logMessage(QString("Target reached at floor %1").arg(currentFloor()));
+    emit logMessage(QString("Target reached at floor %1")
+                    .arg(FloorCatalog::numberFromPosition(currentFloor())));
 
     const std::vector<ElevatorRequest> served = scheduler.takeServedAt(currentFloor(), currentDirection);
     clearServedButtons(served);

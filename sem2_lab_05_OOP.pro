@@ -15,6 +15,7 @@ SOURCES += \
     elevatorrequest.cpp \
     elevatorscheduler.cpp \
     elevatorsystem.cpp \
+    floorcatalog.cpp \
     main.cpp \
     mainwindow.cpp \
     shaftview.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     elevatorrequest.h \
     elevatorscheduler.h \
     elevatorsystem.h \
+    floorcatalog.h \
     mainwindow.h \
     shaftview.h
 

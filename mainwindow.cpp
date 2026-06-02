@@ -42,17 +42,17 @@ void MainWindow::setupButtonMaps()
     cabinButtons[1] = ui->cabinFloorButton1;
     cabinButtons[2] = ui->cabinFloorButton2;
     cabinButtons[3] = ui->cabinFloorButton3;
-    cabinButtons[4] = ui->cabinFloorButton4;
+    cabinButtons[67] = ui->cabinFloorButton4;
     cabinButtons[5] = ui->cabinFloorButton5;
 
     callUpButtons[1] = ui->callUpButton1;
     callUpButtons[2] = ui->callUpButton2;
     callUpButtons[3] = ui->callUpButton3;
-    callUpButtons[4] = ui->callUpButton4;
+    callUpButtons[67] = ui->callUpButton4;
 
     callDownButtons[2] = ui->callDownButton2;
     callDownButtons[3] = ui->callDownButton3;
-    callDownButtons[4] = ui->callDownButton4;
+    callDownButtons[67] = ui->callDownButton4;
     callDownButtons[5] = ui->callDownButton5;
 }
 
@@ -121,6 +121,7 @@ void MainWindow::connectSystemSignals()
 
 void MainWindow::initializeView()
 {
+    initializeFloorTexts();
     ui->currentFloorValueLabel->setText("1");
     ui->targetFloorValueLabel->setText("-");
     ui->directionValueLabel->setText(directionText(Direction::Idle));
@@ -138,6 +139,13 @@ void MainWindow::initializeView()
     connect(system, &ElevatorSystem::controllerStateChanged, this, [this](ControllerState state) {
         statusBar()->showMessage(controllerStateText(state));
     });
+}
+
+void MainWindow::initializeFloorTexts()
+{
+    ui->floorNumberLabel4->setText("67");
+    ui->floorCaptionLabel4->setText(floorCaption(67));
+    ui->cabinFloorButton4->setText("67");
 }
 
 void MainWindow::setButtonChecked(QPushButton *button, bool checked)
@@ -238,4 +246,9 @@ QString MainWindow::controllerStateText(ControllerState state) const
     }
 
     return "Elevator is idle";
+}
+
+QString MainWindow::floorCaption(int floor) const
+{
+    return QString("Этаж %1").arg(floor);
 }

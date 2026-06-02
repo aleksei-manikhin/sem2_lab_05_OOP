@@ -35,31 +35,26 @@ public:
     QHBoxLayout *mainLayout;
     QGroupBox *visualPanelGroup;
     QGridLayout *visualLayout;
-    QWidget *floorInfoWidget5;
     QVBoxLayout *floorInfoLayout5;
     QSpacerItem *floorInfoTopSpacer5;
     QLabel *floorNumberLabel5;
     QLabel *floorCaptionLabel5;
     QSpacerItem *floorInfoBottomSpacer5;
-    QWidget *floorInfoWidget4;
     QVBoxLayout *floorInfoLayout4;
     QSpacerItem *floorInfoTopSpacer4;
     QLabel *floorNumberLabel4;
     QLabel *floorCaptionLabel4;
     QSpacerItem *floorInfoBottomSpacer4;
-    QWidget *floorInfoWidget3;
     QVBoxLayout *floorInfoLayout3;
     QSpacerItem *floorInfoTopSpacer3;
     QLabel *floorNumberLabel3;
     QLabel *floorCaptionLabel3;
     QSpacerItem *floorInfoBottomSpacer3;
-    QWidget *floorInfoWidget2;
     QVBoxLayout *floorInfoLayout2;
     QSpacerItem *floorInfoTopSpacer2;
     QLabel *floorNumberLabel2;
     QLabel *floorCaptionLabel2;
     QSpacerItem *floorInfoBottomSpacer2;
-    QWidget *floorInfoWidget1;
     QVBoxLayout *floorInfoLayout1;
     QSpacerItem *floorInfoTopSpacer1;
     QLabel *floorNumberLabel1;
@@ -75,35 +70,29 @@ public:
     QFrame *elevatorCabinFrame;
     QFrame *leftDoorFrame;
     QFrame *rightDoorFrame;
-    QWidget *callButtonsWidget5;
     QHBoxLayout *callButtonsLayout5;
     QSpacerItem *callLeftSpacer5;
     QPushButton *callDownButton5;
     QSpacerItem *callRightSpacer5;
-    QWidget *callButtonsWidget4;
     QHBoxLayout *callButtonsLayout4;
     QSpacerItem *callLeftSpacer4;
     QPushButton *callUpButton4;
     QPushButton *callDownButton4;
     QSpacerItem *callRightSpacer4;
-    QWidget *callButtonsWidget3;
     QHBoxLayout *callButtonsLayout3;
     QSpacerItem *callLeftSpacer3;
     QPushButton *callUpButton3;
     QPushButton *callDownButton3;
     QSpacerItem *callRightSpacer3;
-    QWidget *callButtonsWidget2;
     QHBoxLayout *callButtonsLayout2;
     QSpacerItem *callLeftSpacer2;
     QPushButton *callUpButton2;
     QPushButton *callDownButton2;
     QSpacerItem *callRightSpacer2;
-    QWidget *callButtonsWidget1;
     QHBoxLayout *callButtonsLayout1;
     QSpacerItem *callLeftSpacer1;
     QPushButton *callUpButton1;
     QSpacerItem *callRightSpacer1;
-    QWidget *controlPanel;
     QVBoxLayout *controlPanelLayout;
     QGroupBox *cabinPanelGroup;
     QVBoxLayout *cabinPanelLayout;
@@ -381,27 +370,22 @@ public:
         visualLayout->setHorizontalSpacing(12);
         visualLayout->setVerticalSpacing(0);
         visualLayout->setContentsMargins(12, 18, 12, 12);
-        floorInfoWidget5 = new QWidget(visualPanelGroup);
-        floorInfoWidget5->setObjectName("floorInfoWidget5");
-        floorInfoWidget5->setMinimumSize(QSize(100, 112));
-        floorInfoWidget5->setMaximumSize(QSize(16777215, 112));
-        floorInfoLayout5 = new QVBoxLayout(floorInfoWidget5);
+        floorInfoLayout5 = new QVBoxLayout();
         floorInfoLayout5->setSpacing(2);
         floorInfoLayout5->setObjectName("floorInfoLayout5");
-        floorInfoLayout5->setContentsMargins(0, 0, 0, 0);
         floorInfoTopSpacer5 = new QSpacerItem(20, 20, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
         floorInfoLayout5->addItem(floorInfoTopSpacer5);
 
-        floorNumberLabel5 = new QLabel(floorInfoWidget5);
+        floorNumberLabel5 = new QLabel(visualPanelGroup);
         floorNumberLabel5->setObjectName("floorNumberLabel5");
-        floorNumberLabel5->setAlignment(Qt::AlignCenter);
+        floorNumberLabel5->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout5->addWidget(floorNumberLabel5);
 
-        floorCaptionLabel5 = new QLabel(floorInfoWidget5);
+        floorCaptionLabel5 = new QLabel(visualPanelGroup);
         floorCaptionLabel5->setObjectName("floorCaptionLabel5");
-        floorCaptionLabel5->setAlignment(Qt::AlignCenter);
+        floorCaptionLabel5->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout5->addWidget(floorCaptionLabel5);
 
@@ -410,29 +394,24 @@ public:
         floorInfoLayout5->addItem(floorInfoBottomSpacer5);
 
 
-        visualLayout->addWidget(floorInfoWidget5, 0, 0, 1, 1);
+        visualLayout->addLayout(floorInfoLayout5, 0, 0, 1, 1);
 
-        floorInfoWidget4 = new QWidget(visualPanelGroup);
-        floorInfoWidget4->setObjectName("floorInfoWidget4");
-        floorInfoWidget4->setMinimumSize(QSize(100, 112));
-        floorInfoWidget4->setMaximumSize(QSize(16777215, 112));
-        floorInfoLayout4 = new QVBoxLayout(floorInfoWidget4);
+        floorInfoLayout4 = new QVBoxLayout();
         floorInfoLayout4->setSpacing(2);
         floorInfoLayout4->setObjectName("floorInfoLayout4");
-        floorInfoLayout4->setContentsMargins(0, 0, 0, 0);
         floorInfoTopSpacer4 = new QSpacerItem(20, 20, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
         floorInfoLayout4->addItem(floorInfoTopSpacer4);
 
-        floorNumberLabel4 = new QLabel(floorInfoWidget4);
+        floorNumberLabel4 = new QLabel(visualPanelGroup);
         floorNumberLabel4->setObjectName("floorNumberLabel4");
-        floorNumberLabel4->setAlignment(Qt::AlignCenter);
+        floorNumberLabel4->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout4->addWidget(floorNumberLabel4);
 
-        floorCaptionLabel4 = new QLabel(floorInfoWidget4);
+        floorCaptionLabel4 = new QLabel(visualPanelGroup);
         floorCaptionLabel4->setObjectName("floorCaptionLabel4");
-        floorCaptionLabel4->setAlignment(Qt::AlignCenter);
+        floorCaptionLabel4->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout4->addWidget(floorCaptionLabel4);
 
@@ -441,29 +420,24 @@ public:
         floorInfoLayout4->addItem(floorInfoBottomSpacer4);
 
 
-        visualLayout->addWidget(floorInfoWidget4, 1, 0, 1, 1);
+        visualLayout->addLayout(floorInfoLayout4, 1, 0, 1, 1);
 
-        floorInfoWidget3 = new QWidget(visualPanelGroup);
-        floorInfoWidget3->setObjectName("floorInfoWidget3");
-        floorInfoWidget3->setMinimumSize(QSize(100, 112));
-        floorInfoWidget3->setMaximumSize(QSize(16777215, 112));
-        floorInfoLayout3 = new QVBoxLayout(floorInfoWidget3);
+        floorInfoLayout3 = new QVBoxLayout();
         floorInfoLayout3->setSpacing(2);
         floorInfoLayout3->setObjectName("floorInfoLayout3");
-        floorInfoLayout3->setContentsMargins(0, 0, 0, 0);
         floorInfoTopSpacer3 = new QSpacerItem(20, 20, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
         floorInfoLayout3->addItem(floorInfoTopSpacer3);
 
-        floorNumberLabel3 = new QLabel(floorInfoWidget3);
+        floorNumberLabel3 = new QLabel(visualPanelGroup);
         floorNumberLabel3->setObjectName("floorNumberLabel3");
-        floorNumberLabel3->setAlignment(Qt::AlignCenter);
+        floorNumberLabel3->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout3->addWidget(floorNumberLabel3);
 
-        floorCaptionLabel3 = new QLabel(floorInfoWidget3);
+        floorCaptionLabel3 = new QLabel(visualPanelGroup);
         floorCaptionLabel3->setObjectName("floorCaptionLabel3");
-        floorCaptionLabel3->setAlignment(Qt::AlignCenter);
+        floorCaptionLabel3->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout3->addWidget(floorCaptionLabel3);
 
@@ -472,29 +446,24 @@ public:
         floorInfoLayout3->addItem(floorInfoBottomSpacer3);
 
 
-        visualLayout->addWidget(floorInfoWidget3, 2, 0, 1, 1);
+        visualLayout->addLayout(floorInfoLayout3, 2, 0, 1, 1);
 
-        floorInfoWidget2 = new QWidget(visualPanelGroup);
-        floorInfoWidget2->setObjectName("floorInfoWidget2");
-        floorInfoWidget2->setMinimumSize(QSize(100, 112));
-        floorInfoWidget2->setMaximumSize(QSize(16777215, 112));
-        floorInfoLayout2 = new QVBoxLayout(floorInfoWidget2);
+        floorInfoLayout2 = new QVBoxLayout();
         floorInfoLayout2->setSpacing(2);
         floorInfoLayout2->setObjectName("floorInfoLayout2");
-        floorInfoLayout2->setContentsMargins(0, 0, 0, 0);
         floorInfoTopSpacer2 = new QSpacerItem(20, 20, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
         floorInfoLayout2->addItem(floorInfoTopSpacer2);
 
-        floorNumberLabel2 = new QLabel(floorInfoWidget2);
+        floorNumberLabel2 = new QLabel(visualPanelGroup);
         floorNumberLabel2->setObjectName("floorNumberLabel2");
-        floorNumberLabel2->setAlignment(Qt::AlignCenter);
+        floorNumberLabel2->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout2->addWidget(floorNumberLabel2);
 
-        floorCaptionLabel2 = new QLabel(floorInfoWidget2);
+        floorCaptionLabel2 = new QLabel(visualPanelGroup);
         floorCaptionLabel2->setObjectName("floorCaptionLabel2");
-        floorCaptionLabel2->setAlignment(Qt::AlignCenter);
+        floorCaptionLabel2->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout2->addWidget(floorCaptionLabel2);
 
@@ -503,29 +472,24 @@ public:
         floorInfoLayout2->addItem(floorInfoBottomSpacer2);
 
 
-        visualLayout->addWidget(floorInfoWidget2, 3, 0, 1, 1);
+        visualLayout->addLayout(floorInfoLayout2, 3, 0, 1, 1);
 
-        floorInfoWidget1 = new QWidget(visualPanelGroup);
-        floorInfoWidget1->setObjectName("floorInfoWidget1");
-        floorInfoWidget1->setMinimumSize(QSize(100, 112));
-        floorInfoWidget1->setMaximumSize(QSize(16777215, 112));
-        floorInfoLayout1 = new QVBoxLayout(floorInfoWidget1);
+        floorInfoLayout1 = new QVBoxLayout();
         floorInfoLayout1->setSpacing(2);
         floorInfoLayout1->setObjectName("floorInfoLayout1");
-        floorInfoLayout1->setContentsMargins(0, 0, 0, 0);
         floorInfoTopSpacer1 = new QSpacerItem(20, 20, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
         floorInfoLayout1->addItem(floorInfoTopSpacer1);
 
-        floorNumberLabel1 = new QLabel(floorInfoWidget1);
+        floorNumberLabel1 = new QLabel(visualPanelGroup);
         floorNumberLabel1->setObjectName("floorNumberLabel1");
-        floorNumberLabel1->setAlignment(Qt::AlignCenter);
+        floorNumberLabel1->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout1->addWidget(floorNumberLabel1);
 
-        floorCaptionLabel1 = new QLabel(floorInfoWidget1);
+        floorCaptionLabel1 = new QLabel(visualPanelGroup);
         floorCaptionLabel1->setObjectName("floorCaptionLabel1");
-        floorCaptionLabel1->setAlignment(Qt::AlignCenter);
+        floorCaptionLabel1->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
         floorInfoLayout1->addWidget(floorCaptionLabel1);
 
@@ -534,7 +498,7 @@ public:
         floorInfoLayout1->addItem(floorInfoBottomSpacer1);
 
 
-        visualLayout->addWidget(floorInfoWidget1, 4, 0, 1, 1);
+        visualLayout->addLayout(floorInfoLayout1, 4, 0, 1, 1);
 
         shaftFrame = new QFrame(visualPanelGroup);
         shaftFrame->setObjectName("shaftFrame");
@@ -545,67 +509,62 @@ public:
         shaftFrame->setSizePolicy(sizePolicy1);
         shaftFrame->setMinimumSize(QSize(260, 560));
         shaftFrame->setMaximumSize(QSize(260, 560));
-        shaftFrame->setFrameShape(QFrame::Box);
-        shaftFrame->setFrameShadow(QFrame::Plain);
+        shaftFrame->setFrameShape(QFrame::Shape::Box);
+        shaftFrame->setFrameShadow(QFrame::Shadow::Plain);
         leftRailFrame = new QFrame(shaftFrame);
         leftRailFrame->setObjectName("leftRailFrame");
         leftRailFrame->setGeometry(QRect(42, 10, 14, 540));
-        leftRailFrame->setFrameShape(QFrame::Box);
+        leftRailFrame->setFrameShape(QFrame::Shape::Box);
         rightRailFrame = new QFrame(shaftFrame);
         rightRailFrame->setObjectName("rightRailFrame");
         rightRailFrame->setGeometry(QRect(204, 10, 14, 540));
-        rightRailFrame->setFrameShape(QFrame::Box);
+        rightRailFrame->setFrameShape(QFrame::Shape::Box);
         floorDividerFrame5 = new QFrame(shaftFrame);
         floorDividerFrame5->setObjectName("floorDividerFrame5");
         floorDividerFrame5->setGeometry(QRect(20, 112, 220, 3));
-        floorDividerFrame5->setFrameShape(QFrame::HLine);
-        floorDividerFrame5->setFrameShadow(QFrame::Sunken);
+        floorDividerFrame5->setFrameShape(QFrame::Shape::HLine);
+        floorDividerFrame5->setFrameShadow(QFrame::Shadow::Sunken);
         floorDividerFrame4 = new QFrame(shaftFrame);
         floorDividerFrame4->setObjectName("floorDividerFrame4");
         floorDividerFrame4->setGeometry(QRect(20, 224, 220, 3));
-        floorDividerFrame4->setFrameShape(QFrame::HLine);
-        floorDividerFrame4->setFrameShadow(QFrame::Sunken);
+        floorDividerFrame4->setFrameShape(QFrame::Shape::HLine);
+        floorDividerFrame4->setFrameShadow(QFrame::Shadow::Sunken);
         floorDividerFrame3 = new QFrame(shaftFrame);
         floorDividerFrame3->setObjectName("floorDividerFrame3");
         floorDividerFrame3->setGeometry(QRect(20, 336, 220, 3));
-        floorDividerFrame3->setFrameShape(QFrame::HLine);
-        floorDividerFrame3->setFrameShadow(QFrame::Sunken);
+        floorDividerFrame3->setFrameShape(QFrame::Shape::HLine);
+        floorDividerFrame3->setFrameShadow(QFrame::Shadow::Sunken);
         floorDividerFrame2 = new QFrame(shaftFrame);
         floorDividerFrame2->setObjectName("floorDividerFrame2");
         floorDividerFrame2->setGeometry(QRect(20, 448, 220, 3));
-        floorDividerFrame2->setFrameShape(QFrame::HLine);
-        floorDividerFrame2->setFrameShadow(QFrame::Sunken);
+        floorDividerFrame2->setFrameShape(QFrame::Shape::HLine);
+        floorDividerFrame2->setFrameShadow(QFrame::Shadow::Sunken);
         elevatorCabinFrame = new QFrame(shaftFrame);
         elevatorCabinFrame->setObjectName("elevatorCabinFrame");
         elevatorCabinFrame->setGeometry(QRect(66, 456, 128, 96));
         elevatorCabinFrame->setMinimumSize(QSize(120, 90));
-        elevatorCabinFrame->setFrameShape(QFrame::Box);
-        elevatorCabinFrame->setFrameShadow(QFrame::Raised);
+        elevatorCabinFrame->setFrameShape(QFrame::Shape::Box);
+        elevatorCabinFrame->setFrameShadow(QFrame::Shadow::Raised);
         leftDoorFrame = new QFrame(elevatorCabinFrame);
         leftDoorFrame->setObjectName("leftDoorFrame");
         leftDoorFrame->setGeometry(QRect(0, 0, 64, 96));
-        leftDoorFrame->setFrameShape(QFrame::Box);
-        leftDoorFrame->setFrameShadow(QFrame::Plain);
+        leftDoorFrame->setFrameShape(QFrame::Shape::Box);
+        leftDoorFrame->setFrameShadow(QFrame::Shadow::Plain);
         rightDoorFrame = new QFrame(elevatorCabinFrame);
         rightDoorFrame->setObjectName("rightDoorFrame");
         rightDoorFrame->setGeometry(QRect(64, 0, 64, 96));
-        rightDoorFrame->setFrameShape(QFrame::Box);
-        rightDoorFrame->setFrameShadow(QFrame::Plain);
+        rightDoorFrame->setFrameShape(QFrame::Shape::Box);
+        rightDoorFrame->setFrameShadow(QFrame::Shadow::Plain);
 
         visualLayout->addWidget(shaftFrame, 0, 1, 5, 1);
 
-        callButtonsWidget5 = new QWidget(visualPanelGroup);
-        callButtonsWidget5->setObjectName("callButtonsWidget5");
-        callButtonsWidget5->setMinimumSize(QSize(130, 112));
-        callButtonsWidget5->setMaximumSize(QSize(16777215, 112));
-        callButtonsLayout5 = new QHBoxLayout(callButtonsWidget5);
+        callButtonsLayout5 = new QHBoxLayout();
         callButtonsLayout5->setObjectName("callButtonsLayout5");
-        callButtonsLayout5->setContentsMargins(0, 0, 0, 0);
         callLeftSpacer5 = new QSpacerItem(20, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         callButtonsLayout5->addItem(callLeftSpacer5);
 
-        callDownButton5 = new QPushButton(callButtonsWidget5);
+        callDownButton5 = new QPushButton(visualPanelGroup);
         callDownButton5->setObjectName("callDownButton5");
         callDownButton5->setMinimumSize(QSize(44, 44));
         callDownButton5->setCheckable(true);
@@ -617,27 +576,22 @@ public:
         callButtonsLayout5->addItem(callRightSpacer5);
 
 
-        visualLayout->addWidget(callButtonsWidget5, 0, 2, 1, 1);
+        visualLayout->addLayout(callButtonsLayout5, 0, 2, 1, 1);
 
-        callButtonsWidget4 = new QWidget(visualPanelGroup);
-        callButtonsWidget4->setObjectName("callButtonsWidget4");
-        callButtonsWidget4->setMinimumSize(QSize(130, 112));
-        callButtonsWidget4->setMaximumSize(QSize(16777215, 112));
-        callButtonsLayout4 = new QHBoxLayout(callButtonsWidget4);
+        callButtonsLayout4 = new QHBoxLayout();
         callButtonsLayout4->setObjectName("callButtonsLayout4");
-        callButtonsLayout4->setContentsMargins(0, 0, 0, 0);
         callLeftSpacer4 = new QSpacerItem(12, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         callButtonsLayout4->addItem(callLeftSpacer4);
 
-        callUpButton4 = new QPushButton(callButtonsWidget4);
+        callUpButton4 = new QPushButton(visualPanelGroup);
         callUpButton4->setObjectName("callUpButton4");
         callUpButton4->setMinimumSize(QSize(44, 44));
         callUpButton4->setCheckable(true);
 
         callButtonsLayout4->addWidget(callUpButton4);
 
-        callDownButton4 = new QPushButton(callButtonsWidget4);
+        callDownButton4 = new QPushButton(visualPanelGroup);
         callDownButton4->setObjectName("callDownButton4");
         callDownButton4->setMinimumSize(QSize(44, 44));
         callDownButton4->setCheckable(true);
@@ -649,27 +603,22 @@ public:
         callButtonsLayout4->addItem(callRightSpacer4);
 
 
-        visualLayout->addWidget(callButtonsWidget4, 1, 2, 1, 1);
+        visualLayout->addLayout(callButtonsLayout4, 1, 2, 1, 1);
 
-        callButtonsWidget3 = new QWidget(visualPanelGroup);
-        callButtonsWidget3->setObjectName("callButtonsWidget3");
-        callButtonsWidget3->setMinimumSize(QSize(130, 112));
-        callButtonsWidget3->setMaximumSize(QSize(16777215, 112));
-        callButtonsLayout3 = new QHBoxLayout(callButtonsWidget3);
+        callButtonsLayout3 = new QHBoxLayout();
         callButtonsLayout3->setObjectName("callButtonsLayout3");
-        callButtonsLayout3->setContentsMargins(0, 0, 0, 0);
         callLeftSpacer3 = new QSpacerItem(12, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         callButtonsLayout3->addItem(callLeftSpacer3);
 
-        callUpButton3 = new QPushButton(callButtonsWidget3);
+        callUpButton3 = new QPushButton(visualPanelGroup);
         callUpButton3->setObjectName("callUpButton3");
         callUpButton3->setMinimumSize(QSize(44, 44));
         callUpButton3->setCheckable(true);
 
         callButtonsLayout3->addWidget(callUpButton3);
 
-        callDownButton3 = new QPushButton(callButtonsWidget3);
+        callDownButton3 = new QPushButton(visualPanelGroup);
         callDownButton3->setObjectName("callDownButton3");
         callDownButton3->setMinimumSize(QSize(44, 44));
         callDownButton3->setCheckable(true);
@@ -681,27 +630,22 @@ public:
         callButtonsLayout3->addItem(callRightSpacer3);
 
 
-        visualLayout->addWidget(callButtonsWidget3, 2, 2, 1, 1);
+        visualLayout->addLayout(callButtonsLayout3, 2, 2, 1, 1);
 
-        callButtonsWidget2 = new QWidget(visualPanelGroup);
-        callButtonsWidget2->setObjectName("callButtonsWidget2");
-        callButtonsWidget2->setMinimumSize(QSize(130, 112));
-        callButtonsWidget2->setMaximumSize(QSize(16777215, 112));
-        callButtonsLayout2 = new QHBoxLayout(callButtonsWidget2);
+        callButtonsLayout2 = new QHBoxLayout();
         callButtonsLayout2->setObjectName("callButtonsLayout2");
-        callButtonsLayout2->setContentsMargins(0, 0, 0, 0);
         callLeftSpacer2 = new QSpacerItem(12, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         callButtonsLayout2->addItem(callLeftSpacer2);
 
-        callUpButton2 = new QPushButton(callButtonsWidget2);
+        callUpButton2 = new QPushButton(visualPanelGroup);
         callUpButton2->setObjectName("callUpButton2");
         callUpButton2->setMinimumSize(QSize(44, 44));
         callUpButton2->setCheckable(true);
 
         callButtonsLayout2->addWidget(callUpButton2);
 
-        callDownButton2 = new QPushButton(callButtonsWidget2);
+        callDownButton2 = new QPushButton(visualPanelGroup);
         callDownButton2->setObjectName("callDownButton2");
         callDownButton2->setMinimumSize(QSize(44, 44));
         callDownButton2->setCheckable(true);
@@ -713,20 +657,15 @@ public:
         callButtonsLayout2->addItem(callRightSpacer2);
 
 
-        visualLayout->addWidget(callButtonsWidget2, 3, 2, 1, 1);
+        visualLayout->addLayout(callButtonsLayout2, 3, 2, 1, 1);
 
-        callButtonsWidget1 = new QWidget(visualPanelGroup);
-        callButtonsWidget1->setObjectName("callButtonsWidget1");
-        callButtonsWidget1->setMinimumSize(QSize(130, 112));
-        callButtonsWidget1->setMaximumSize(QSize(16777215, 112));
-        callButtonsLayout1 = new QHBoxLayout(callButtonsWidget1);
+        callButtonsLayout1 = new QHBoxLayout();
         callButtonsLayout1->setObjectName("callButtonsLayout1");
-        callButtonsLayout1->setContentsMargins(0, 0, 0, 0);
         callLeftSpacer1 = new QSpacerItem(20, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         callButtonsLayout1->addItem(callLeftSpacer1);
 
-        callUpButton1 = new QPushButton(callButtonsWidget1);
+        callUpButton1 = new QPushButton(visualPanelGroup);
         callUpButton1->setObjectName("callUpButton1");
         callUpButton1->setMinimumSize(QSize(44, 44));
         callUpButton1->setCheckable(true);
@@ -738,30 +677,22 @@ public:
         callButtonsLayout1->addItem(callRightSpacer1);
 
 
-        visualLayout->addWidget(callButtonsWidget1, 4, 2, 1, 1);
+        visualLayout->addLayout(callButtonsLayout1, 4, 2, 1, 1);
 
 
         mainLayout->addWidget(visualPanelGroup);
 
-        controlPanel = new QWidget(centralwidget);
-        controlPanel->setObjectName("controlPanel");
-        QSizePolicy sizePolicy2(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Expanding);
-        sizePolicy2.setHorizontalStretch(2);
-        sizePolicy2.setVerticalStretch(1);
-        sizePolicy2.setHeightForWidth(controlPanel->sizePolicy().hasHeightForWidth());
-        controlPanel->setSizePolicy(sizePolicy2);
-        controlPanel->setMinimumSize(QSize(410, 620));
-        controlPanelLayout = new QVBoxLayout(controlPanel);
+        controlPanelLayout = new QVBoxLayout();
         controlPanelLayout->setSpacing(12);
         controlPanelLayout->setObjectName("controlPanelLayout");
         controlPanelLayout->setContentsMargins(0, 0, 0, 0);
-        cabinPanelGroup = new QGroupBox(controlPanel);
+        cabinPanelGroup = new QGroupBox(centralwidget);
         cabinPanelGroup->setObjectName("cabinPanelGroup");
-        QSizePolicy sizePolicy3(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(cabinPanelGroup->sizePolicy().hasHeightForWidth());
-        cabinPanelGroup->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(cabinPanelGroup->sizePolicy().hasHeightForWidth());
+        cabinPanelGroup->setSizePolicy(sizePolicy2);
         cabinPanelLayout = new QVBoxLayout(cabinPanelGroup);
         cabinPanelLayout->setSpacing(12);
         cabinPanelLayout->setObjectName("cabinPanelLayout");
@@ -832,15 +763,15 @@ public:
 
         controlPanelLayout->addWidget(cabinPanelGroup);
 
-        statusGroup = new QGroupBox(controlPanel);
+        statusGroup = new QGroupBox(centralwidget);
         statusGroup->setObjectName("statusGroup");
-        sizePolicy3.setHeightForWidth(statusGroup->sizePolicy().hasHeightForWidth());
-        statusGroup->setSizePolicy(sizePolicy3);
+        sizePolicy2.setHeightForWidth(statusGroup->sizePolicy().hasHeightForWidth());
+        statusGroup->setSizePolicy(sizePolicy2);
         statusLayout = new QFormLayout(statusGroup);
         statusLayout->setObjectName("statusLayout");
-        statusLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
-        statusLayout->setLabelAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        statusLayout->setFormAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        statusLayout->setFieldGrowthPolicy(QFormLayout::FieldGrowthPolicy::AllNonFixedFieldsGrow);
+        statusLayout->setLabelAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter);
+        statusLayout->setFormAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop);
         statusLayout->setHorizontalSpacing(18);
         statusLayout->setVerticalSpacing(10);
         currentFloorTitleLabel = new QLabel(statusGroup);
@@ -896,20 +827,20 @@ public:
 
         controlPanelLayout->addWidget(statusGroup);
 
-        logGroup = new QGroupBox(controlPanel);
+        logGroup = new QGroupBox(centralwidget);
         logGroup->setObjectName("logGroup");
-        QSizePolicy sizePolicy4(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Expanding);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(1);
-        sizePolicy4.setHeightForWidth(logGroup->sizePolicy().hasHeightForWidth());
-        logGroup->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy3(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(1);
+        sizePolicy3.setHeightForWidth(logGroup->sizePolicy().hasHeightForWidth());
+        logGroup->setSizePolicy(sizePolicy3);
         logLayout = new QVBoxLayout(logGroup);
         logLayout->setSpacing(8);
         logLayout->setObjectName("logLayout");
         eventLogEdit = new QPlainTextEdit(logGroup);
         eventLogEdit->setObjectName("eventLogEdit");
-        sizePolicy4.setHeightForWidth(eventLogEdit->sizePolicy().hasHeightForWidth());
-        eventLogEdit->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(eventLogEdit->sizePolicy().hasHeightForWidth());
+        eventLogEdit->setSizePolicy(sizePolicy3);
         eventLogEdit->setMinimumSize(QSize(0, 160));
         eventLogEdit->setReadOnly(true);
 
@@ -934,12 +865,12 @@ public:
         controlPanelLayout->addWidget(logGroup);
 
 
-        mainLayout->addWidget(controlPanel);
+        mainLayout->addLayout(controlPanelLayout);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1000, 24));
+        menubar->setGeometry(QRect(0, 0, 1000, 25));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -956,8 +887,8 @@ public:
         visualPanelGroup->setTitle(QCoreApplication::translate("MainWindow", "\320\222\320\270\320\267\321\203\320\260\320\273\320\270\320\267\320\260\321\206\320\270\321\217 \320\273\320\270\321\204\321\202\320\260", nullptr));
         floorNumberLabel5->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
         floorCaptionLabel5->setText(QCoreApplication::translate("MainWindow", "\320\255\321\202\320\260\320\266 5", nullptr));
-        floorNumberLabel4->setText(QCoreApplication::translate("MainWindow", "4", nullptr));
-        floorCaptionLabel4->setText(QCoreApplication::translate("MainWindow", "\320\255\321\202\320\260\320\266 4", nullptr));
+        floorNumberLabel4->setText(QCoreApplication::translate("MainWindow", "67", nullptr));
+        floorCaptionLabel4->setText(QCoreApplication::translate("MainWindow", "\320\255\321\202\320\260\320\266 67", nullptr));
         floorNumberLabel3->setText(QCoreApplication::translate("MainWindow", "3", nullptr));
         floorCaptionLabel3->setText(QCoreApplication::translate("MainWindow", "\320\255\321\202\320\260\320\266 3", nullptr));
         floorNumberLabel2->setText(QCoreApplication::translate("MainWindow", "2", nullptr));
@@ -977,7 +908,7 @@ public:
         cabinFloorButton1->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         cabinFloorButton2->setText(QCoreApplication::translate("MainWindow", "2", nullptr));
         cabinFloorButton3->setText(QCoreApplication::translate("MainWindow", "3", nullptr));
-        cabinFloorButton4->setText(QCoreApplication::translate("MainWindow", "4", nullptr));
+        cabinFloorButton4->setText(QCoreApplication::translate("MainWindow", "67", nullptr));
         cabinFloorButton5->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
         openDoorsButton->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214 \320\264\320\262\320\265\321\200\320\270", nullptr));
         closeDoorsButton->setText(QCoreApplication::translate("MainWindow", "\320\227\320\260\320\272\321\200\321\213\321\202\321\214 \320\264\320\262\320\265\321\200\320\270", nullptr));

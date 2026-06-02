@@ -1,4 +1,5 @@
 #include "elevatorcabin.h"
+#include "floorcatalog.h"
 
 ElevatorCabin::ElevatorCabin(int minFloor, int maxFloor, QObject *parent)
     : QObject(parent),
@@ -54,7 +55,8 @@ void ElevatorCabin::stop()
     moveTimer.stop();
     setDirection(Direction::Idle);
     setState(CabinState::Stopped);
-    emit logMessage(QString("Cabin stopped at floor %1").arg(currentFloorNumber));
+    emit logMessage(QString("Cabin stopped at floor %1")
+                    .arg(FloorCatalog::numberFromPosition(currentFloorNumber)));
 }
 
 void ElevatorCabin::onMoveTick()
@@ -117,6 +119,7 @@ void ElevatorCabin::arriveToNextFloor()
 {
     currentFloorNumber = nextFloor();
     emit floorChanged(currentFloorNumber);
-    emit logMessage(QString("Cabin arrived at floor %1").arg(currentFloorNumber));
+    emit logMessage(QString("Cabin arrived at floor %1")
+                    .arg(FloorCatalog::numberFromPosition(currentFloorNumber)));
     emit floorReached(currentFloorNumber);
 }

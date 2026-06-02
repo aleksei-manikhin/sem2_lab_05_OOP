@@ -4,6 +4,7 @@ release/elevatordoors.o
 release/elevatorrequest.o
 release/elevatorscheduler.o
 release/elevatorsystem.o
+release/floorcatalog.o
 release/main.o
 release/mainwindow.o
 release/shaftview.o

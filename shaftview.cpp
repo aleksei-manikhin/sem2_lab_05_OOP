@@ -1,6 +1,8 @@
 #include "shaftview.h"
+#include "floorcatalog.h"
 
 #include <QFrame>
+#include <QtGlobal>
 
 ShaftView::ShaftView(QFrame *shaftFrame,
                      QFrame *cabinFrame,
@@ -50,7 +52,8 @@ void ShaftView::animateDoors(DoorState state)
 QRect ShaftView::cabinGeometryForFloor(int floor) const
 {
     const QRect current = cabinFrame->geometry();
-    const int safeFloor = qBound(MinFloor, floor, MaxFloor);
+    const int position = FloorCatalog::positionFromNumber(floor);
+    const int safeFloor = qBound(MinFloor, position, MaxFloor);
     const int floorHeight = 112;
     const int baseY = 456;
     const int y = baseY - (safeFloor - MinFloor) * floorHeight;

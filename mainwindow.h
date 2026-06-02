@@ -32,6 +32,7 @@ private:
     void connectDoorButtons();
     void connectSystemSignals();
     void initializeView();
+    void initializeFloorTexts();
 
     void setButtonChecked(QPushButton *button, bool checked);
     void setCabinButtonLight(int floor, bool enabled);
@@ -43,6 +44,7 @@ private:
     QString cabinStateText(CabinState state) const;
     QString doorStateText(DoorState state) const;
     QString controllerStateText(ControllerState state) const;
+    QString floorCaption(int floor) const;
 
     Ui::MainWindow *ui;
     ElevatorSystem *system = nullptr;
