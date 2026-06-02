@@ -6,20 +6,1499 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1000</width>
+    <height>680</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>680</height>
+   </size>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <property name="windowTitle">
+   <string>Симулятор пассажирского лифта — 5 этажей</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+    background: #f6f8fb;
+}
+
+QWidget {
+    color: #1f2933;
+    font-family: &quot;Segoe UI&quot;, &quot;Arial&quot;;
+    font-size: 15px;
+}
+
+QGroupBox {
+    background: #ffffff;
+    border: 1px solid #d7dde5;
+    border-radius: 8px;
+    margin-top: 18px;
+    font-weight: 600;
+    color: #1555b3;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 12px;
+    padding: 0 6px;
+    background: #ffffff;
+    color: #1555b3;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+QPushButton {
+    background: #ffffff;
+    border: 1px solid #c9d1dc;
+    border-radius: 7px;
+    color: #1f2933;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    background: #f3f7fd;
+    border-color: #9bb7df;
+}
+
+QPushButton:pressed {
+    background: #dceaff;
+    border-color: #1f5fbf;
+}
+
+QPushButton:checked {
+    background: #e7f0ff;
+    border: 2px solid #1f5fbf;
+    color: #174a9c;
+}
+
+QPushButton:disabled {
+    background: #edf0f3;
+    border-color: #d2d7de;
+    color: #98a1ad;
+}
+
+QLabel {
+    background: transparent;
+}
+
+#visualPanelGroup,
+#cabinPanelGroup,
+#statusGroup,
+#logGroup {
+    background: #ffffff;
+}
+
+#floorNumberLabel1,
+#floorNumberLabel2,
+#floorNumberLabel3,
+#floorNumberLabel4,
+#floorNumberLabel5 {
+    color: #174a9c;
+    font-size: 34px;
+    font-weight: 800;
+}
+
+#floorCaptionLabel1,
+#floorCaptionLabel2,
+#floorCaptionLabel3,
+#floorCaptionLabel4,
+#floorCaptionLabel5 {
+    color: #2f3741;
+    font-size: 16px;
+}
+
+#shaftFrame {
+    background: #dde5ee;
+    border: 2px solid #2d3742;
+    border-radius: 0;
+}
+
+#leftRailFrame,
+#rightRailFrame {
+    background: #8798a8;
+    border: 1px solid #25313b;
+}
+
+#floorDividerFrame2,
+#floorDividerFrame3,
+#floorDividerFrame4,
+#floorDividerFrame5 {
+    color: #303a44;
+    background: #303a44;
+}
+
+#elevatorCabinFrame {
+    background: #cfd9e4;
+    border: 2px solid #111827;
+}
+
+#leftDoorFrame,
+#rightDoorFrame {
+    background: #d7e1eb;
+    border: 1px solid #1f2933;
+}
+
+#callUpButton1,
+#callUpButton2,
+#callUpButton3,
+#callUpButton4 {
+    color: #168821;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+#callDownButton2,
+#callDownButton3,
+#callDownButton4,
+#callDownButton5 {
+    color: #111827;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+#callUpButton1:checked,
+#callUpButton2:checked,
+#callUpButton3:checked,
+#callUpButton4:checked {
+    background: #e8f8eb;
+    border: 2px solid #168821;
+    color: #0f7a1a;
+}
+
+#callDownButton2:checked,
+#callDownButton3:checked,
+#callDownButton4:checked,
+#callDownButton5:checked {
+    background: #e7f0ff;
+    border: 2px solid #174a9c;
+    color: #174a9c;
+}
+
+#cabinFloorButton1,
+#cabinFloorButton2,
+#cabinFloorButton3,
+#cabinFloorButton4,
+#cabinFloorButton5 {
+    color: #174a9c;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+#cabinFloorButton1:checked,
+#cabinFloorButton2:checked,
+#cabinFloorButton3:checked,
+#cabinFloorButton4:checked,
+#cabinFloorButton5:checked {
+    background: #e7f0ff;
+    border: 2px solid #174a9c;
+}
+
+#openDoorsButton,
+#closeDoorsButton {
+    font-size: 16px;
+    min-height: 54px;
+}
+
+#currentFloorValueLabel,
+#targetFloorValueLabel {
+    color: #174a9c;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#directionValueLabel,
+#cabinStateValueLabel {
+    color: #4b5563;
+    font-weight: 600;
+}
+
+#doorsStateValueLabel {
+    color: #168821;
+    font-weight: 700;
+}
+
+#eventLogEdit {
+    background: #fbfcfe;
+    border: 1px solid #c9d1dc;
+    border-radius: 6px;
+    color: #1f2933;
+    font-family: &quot;Consolas&quot;, &quot;Courier New&quot;, monospace;
+    font-size: 14px;
+    selection-background-color: #cfe0ff;
+}
+
+#clearLogButton {
+    min-height: 34px;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="mainLayout">
+    <property name="leftMargin">
+     <number>12</number>
+    </property>
+    <property name="topMargin">
+     <number>12</number>
+    </property>
+    <property name="rightMargin">
+     <number>12</number>
+    </property>
+    <property name="bottomMargin">
+     <number>12</number>
+    </property>
+    <property name="spacing">
+     <number>12</number>
+    </property>
+    <item>
+     <widget class="QGroupBox" name="visualPanelGroup">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>3</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>560</width>
+        <height>620</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Визуализация лифта</string>
+      </property>
+      <layout class="QGridLayout" name="visualLayout">
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="topMargin">
+        <number>18</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <property name="bottomMargin">
+        <number>12</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>12</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QWidget" name="floorInfoWidget5">
+         <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QVBoxLayout" name="floorInfoLayout5">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item>
+           <spacer name="floorInfoTopSpacer5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorNumberLabel5">
+            <property name="text">
+             <string>5</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorCaptionLabel5">
+            <property name="text">
+             <string>Этаж 5</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="floorInfoBottomSpacer5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QWidget" name="floorInfoWidget4">
+         <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QVBoxLayout" name="floorInfoLayout4">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item>
+           <spacer name="floorInfoTopSpacer4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorNumberLabel4">
+            <property name="text">
+             <string>4</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorCaptionLabel4">
+            <property name="text">
+             <string>Этаж 4</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="floorInfoBottomSpacer4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QWidget" name="floorInfoWidget3">
+         <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QVBoxLayout" name="floorInfoLayout3">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item>
+           <spacer name="floorInfoTopSpacer3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorNumberLabel3">
+            <property name="text">
+             <string>3</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorCaptionLabel3">
+            <property name="text">
+             <string>Этаж 3</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="floorInfoBottomSpacer3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QWidget" name="floorInfoWidget2">
+         <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QVBoxLayout" name="floorInfoLayout2">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item>
+           <spacer name="floorInfoTopSpacer2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorNumberLabel2">
+            <property name="text">
+             <string>2</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorCaptionLabel2">
+            <property name="text">
+             <string>Этаж 2</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="floorInfoBottomSpacer2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QWidget" name="floorInfoWidget1">
+         <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QVBoxLayout" name="floorInfoLayout1">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <item>
+           <spacer name="floorInfoTopSpacer1">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorNumberLabel1">
+            <property name="text">
+             <string>1</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="floorCaptionLabel1">
+            <property name="text">
+             <string>Этаж 1</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="floorInfoBottomSpacer1">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="1" rowspan="5">
+        <widget class="QFrame" name="shaftFrame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>260</width>
+          <height>560</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>260</width>
+          <height>560</height>
+         </size>
+        </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <widget class="QFrame" name="leftRailFrame">
+          <property name="geometry">
+           <rect>
+            <x>42</x>
+            <y>10</y>
+            <width>14</width>
+            <height>540</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+         </widget>
+         <widget class="QFrame" name="rightRailFrame">
+          <property name="geometry">
+           <rect>
+            <x>204</x>
+            <y>10</y>
+            <width>14</width>
+            <height>540</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+         </widget>
+         <widget class="QFrame" name="floorDividerFrame5">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>112</y>
+            <width>220</width>
+            <height>3</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::HLine</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+         </widget>
+         <widget class="QFrame" name="floorDividerFrame4">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>224</y>
+            <width>220</width>
+            <height>3</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::HLine</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+         </widget>
+         <widget class="QFrame" name="floorDividerFrame3">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>336</y>
+            <width>220</width>
+            <height>3</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::HLine</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+         </widget>
+         <widget class="QFrame" name="floorDividerFrame2">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>448</y>
+            <width>220</width>
+            <height>3</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::HLine</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+         </widget>
+         <widget class="QFrame" name="elevatorCabinFrame">
+          <property name="geometry">
+           <rect>
+            <x>66</x>
+            <y>456</y>
+            <width>128</width>
+            <height>96</height>
+           </rect>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>90</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QFrame" name="leftDoorFrame">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>64</width>
+             <height>96</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+          </widget>
+          <widget class="QFrame" name="rightDoorFrame">
+           <property name="geometry">
+            <rect>
+             <x>64</x>
+             <y>0</y>
+             <width>64</width>
+             <height>96</height>
+            </rect>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QWidget" name="callButtonsWidget5">
+         <property name="minimumSize">
+         <size>
+          <width>130</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QHBoxLayout" name="callButtonsLayout5">
+          <item>
+           <spacer name="callLeftSpacer5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="callDownButton5">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>↓</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="callRightSpacer5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QWidget" name="callButtonsWidget4">
+         <property name="minimumSize">
+         <size>
+          <width>130</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QHBoxLayout" name="callButtonsLayout4">
+          <item>
+           <spacer name="callLeftSpacer4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>12</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="callUpButton4">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>↑</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="callDownButton4">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>↓</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="callRightSpacer4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>12</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QWidget" name="callButtonsWidget3">
+         <property name="minimumSize">
+         <size>
+          <width>130</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QHBoxLayout" name="callButtonsLayout3">
+          <item>
+           <spacer name="callLeftSpacer3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>12</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="callUpButton3">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>↑</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="callDownButton3">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>↓</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="callRightSpacer3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>12</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QWidget" name="callButtonsWidget2">
+         <property name="minimumSize">
+         <size>
+          <width>130</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QHBoxLayout" name="callButtonsLayout2">
+          <item>
+           <spacer name="callLeftSpacer2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>12</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="callUpButton2">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>↑</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="callDownButton2">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>↓</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="callRightSpacer2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>12</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QWidget" name="callButtonsWidget1">
+         <property name="minimumSize">
+         <size>
+          <width>130</width>
+          <height>112</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>112</height>
+         </size>
+        </property>
+         <layout class="QHBoxLayout" name="callButtonsLayout1">
+          <item>
+           <spacer name="callLeftSpacer1">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="callUpButton1">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>44</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>↑</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="callRightSpacer1">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="controlPanel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>2</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>410</width>
+        <height>620</height>
+       </size>
+      </property>
+      <layout class="QVBoxLayout" name="controlPanelLayout">
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="cabinPanelGroup">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Панель кабины</string>
+         </property>
+         <layout class="QVBoxLayout" name="cabinPanelLayout">
+          <property name="spacing">
+           <number>12</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="chooseFloorLabel">
+            <property name="text">
+             <string>Выберите этаж</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="cabinFloorButtonsLayout">
+            <property name="spacing">
+             <number>8</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="cabinFloorButton1">
+              <property name="minimumSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="cabinFloorButton2">
+              <property name="minimumSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>2</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="cabinFloorButton3">
+              <property name="minimumSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>3</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="cabinFloorButton4">
+              <property name="minimumSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>4</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="cabinFloorButton5">
+              <property name="minimumSize">
+               <size>
+                <width>64</width>
+                <height>64</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>5</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="doorButtonsLayout">
+            <property name="spacing">
+             <number>10</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="openDoorsButton">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Открыть двери</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="closeDoorsButton">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Закрыть двери</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="statusGroup">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Состояние лифта</string>
+         </property>
+         <layout class="QFormLayout" name="statusLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+          </property>
+          <property name="labelAlignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+          <property name="formAlignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="horizontalSpacing">
+           <number>18</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>10</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="currentFloorTitleLabel">
+            <property name="text">
+             <string>Текущий этаж:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="currentFloorValueLabel">
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="directionTitleLabel">
+            <property name="text">
+             <string>Направление:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="directionValueLabel">
+            <property name="text">
+             <string>Остановка</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="cabinStateTitleLabel">
+            <property name="text">
+             <string>Состояние кабины:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="cabinStateValueLabel">
+            <property name="text">
+             <string>Ожидание</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="doorsStateTitleLabel">
+            <property name="text">
+             <string>Состояние дверей:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="doorsStateValueLabel">
+            <property name="text">
+             <string>Закрыты</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="targetFloorTitleLabel">
+            <property name="text">
+             <string>Целевой этаж:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLabel" name="targetFloorValueLabel">
+            <property name="text">
+             <string>—</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="logGroup">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Лог событий</string>
+         </property>
+         <layout class="QVBoxLayout" name="logLayout">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QPlainTextEdit" name="eventLogEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>160</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="clearLogLayout">
+            <item>
+             <spacer name="clearLogSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="clearLogButton">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>36</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Очистить лог</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1000</width>
      <height>24</height>
     </rect>
    </property>
