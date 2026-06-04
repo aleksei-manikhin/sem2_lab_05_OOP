@@ -43,7 +43,6 @@ private:
     QString directionText(Direction direction) const;
     QString cabinStateText(CabinState state) const;
     QString doorStateText(DoorState state) const;
-    QString controllerStateText(ControllerState state) const;
     QString floorCaption(int floor) const;
 
     Ui::MainWindow *ui;

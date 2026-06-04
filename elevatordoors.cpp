@@ -54,7 +54,6 @@ void ElevatorDoors::close()
 
 void ElevatorDoors::forceClose()
 {
-    emit logMessage("Doors close button pressed");
     close();
 }
 

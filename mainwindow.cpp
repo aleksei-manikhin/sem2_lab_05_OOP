@@ -136,9 +136,6 @@ void MainWindow::initializeView()
         ui->doorsStateValueLabel->setText(doorStateText(state));
         shaftView->animateDoors(state);
     });
-    connect(system, &ElevatorSystem::controllerStateChanged, this, [this](ControllerState state) {
-        statusBar()->showMessage(controllerStateText(state));
-    });
 }
 
 void MainWindow::initializeFloorTexts()
@@ -229,23 +226,6 @@ QString MainWindow::doorStateText(DoorState state) const
     }
 
     return "Closed";
-}
-
-QString MainWindow::controllerStateText(ControllerState state) const
-{
-    if (state == ControllerState::Moving) {
-        return "Elevator is moving";
-    }
-
-    if (state == ControllerState::UpdatingTarget) {
-        return "Choosing next target";
-    }
-
-    if (state == ControllerState::TargetReached) {
-        return "Target reached";
-    }
-
-    return "Elevator is idle";
 }
 
 QString MainWindow::floorCaption(int floor) const
