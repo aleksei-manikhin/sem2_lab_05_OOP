@@ -43,30 +43,38 @@ void ElevatorSystem::requestDoorsClose()
     controller->closeDoorsRequested();
 }
 
+void ElevatorSystem::onControllerCurrentFloorChanged(int position)
+{
+    emit currentFloorChanged(FloorCatalog::numberFromPosition(position));
+}
+
+void ElevatorSystem::onControllerTargetFloorChanged(int position)
+{
+    emit targetFloorChanged(FloorCatalog::numberFromPosition(position));
+}
+
+void ElevatorSystem::onControllerCabinButtonLightChanged(int position, bool enabled)
+{
+    emit cabinButtonLightChanged(FloorCatalog::numberFromPosition(position), enabled);
+}
+
+void ElevatorSystem::onControllerFloorCallLightChanged(int position,
+                                                       Direction direction,
+                                                       bool enabled)
+{
+    emit floorCallLightChanged(FloorCatalog::numberFromPosition(position), direction, enabled);
+}
+
 void ElevatorSystem::connectController()
 {
-    connectButtonSignals();
-    connectStateSignals();
-}
-
-void ElevatorSystem::connectButtonSignals()
-{
-    connect(controller, &ElevatorController::cabinButtonLightChanged,
-            this, [this](int position, bool enabled) {
-        emit cabinButtonLightChanged(FloorCatalog::numberFromPosition(position), enabled);
-    });
-    connect(controller, &ElevatorController::floorCallLightChanged,
-            this, [this](int position, Direction direction, bool enabled) {
-        emit floorCallLightChanged(FloorCatalog::numberFromPosition(position), direction, enabled);
-    });
     connect(controller, &ElevatorController::currentFloorChanged,
-            this, [this](int position) {
-        emit currentFloorChanged(FloorCatalog::numberFromPosition(position));
-    });
-}
-
-void ElevatorSystem::connectStateSignals()
-{
+            this, &ElevatorSystem::onControllerCurrentFloorChanged);
+    connect(controller, &ElevatorController::targetFloorChanged,
+            this, &ElevatorSystem::onControllerTargetFloorChanged);
+    connect(controller, &ElevatorController::cabinButtonLightChanged,
+            this, &ElevatorSystem::onControllerCabinButtonLightChanged);
+    connect(controller, &ElevatorController::floorCallLightChanged,
+            this, &ElevatorSystem::onControllerFloorCallLightChanged);
     connect(controller, &ElevatorController::cabinStateChanged,
             this, &ElevatorSystem::cabinStateChanged);
     connect(controller, &ElevatorController::doorStateChanged,
@@ -75,10 +83,6 @@ void ElevatorSystem::connectStateSignals()
             this, &ElevatorSystem::controllerStateChanged);
     connect(controller, &ElevatorController::directionChanged,
             this, &ElevatorSystem::directionChanged);
-    connect(controller, &ElevatorController::targetFloorChanged,
-            this, [this](int position) {
-        emit targetFloorChanged(FloorCatalog::numberFromPosition(position));
-    });
     connect(controller, &ElevatorController::logMessage,
             this, &ElevatorSystem::logMessage);
 }

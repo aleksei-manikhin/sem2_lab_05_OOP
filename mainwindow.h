@@ -24,6 +24,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void setClickedButtonChecked();
+    void requestCabinFloorFromButton();
+    void requestUpFloorCallFromButton();
+    void requestDownFloorCallFromButton();
+    void onCurrentFloorChanged(int floor);
+    void onTargetFloorChanged(int floor);
+    void onDirectionChanged(Direction direction);
+    void onCabinStateChanged(CabinState state);
+    void onDoorStateChanged(DoorState state);
+
 private:
     void setupModel();
     void setupButtonMaps();

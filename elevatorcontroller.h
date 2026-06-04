@@ -39,6 +39,7 @@ signals:
 private slots:
     void onCabinReachedFloor(int floor);
     void onDoorsClosed();
+    void writeDebugLog(const QString &message);
 
 private:
     void connectParts();
@@ -50,7 +51,6 @@ private:
     void clearServedButtons(const std::vector<ElevatorRequest> &served);
     void setState(ControllerState state);
     void setDirection(Direction direction);
-    bool doorsCanBeControlled() const;
 
     ElevatorCabin *cabin = nullptr;
     ElevatorDoors *doors = nullptr;

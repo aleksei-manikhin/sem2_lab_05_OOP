@@ -22,6 +22,12 @@ public slots:
     void requestDoorsOpen();
     void requestDoorsClose();
 
+private slots:
+    void onControllerCurrentFloorChanged(int position);
+    void onControllerTargetFloorChanged(int position);
+    void onControllerCabinButtonLightChanged(int position, bool enabled);
+    void onControllerFloorCallLightChanged(int position, Direction direction, bool enabled);
+
 signals:
     void cabinButtonLightChanged(int floor, bool enabled);
     void floorCallLightChanged(int floor, Direction direction, bool enabled);
@@ -35,8 +41,6 @@ signals:
 
 private:
     void connectController();
-    void connectButtonSignals();
-    void connectStateSignals();
 
     ElevatorController *controller = nullptr;
 };

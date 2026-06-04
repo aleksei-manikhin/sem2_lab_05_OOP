@@ -39,7 +39,7 @@ void ElevatorController::addFloorCall(int floor, Direction direction)
 
 void ElevatorController::openDoorsRequested()
 {
-    if (!doorsCanBeControlled()) {
+    if (cabin->isMoving()) {
         return;
     }
 
@@ -49,7 +49,7 @@ void ElevatorController::openDoorsRequested()
 
 void ElevatorController::closeDoorsRequested()
 {
-    if (!doorsCanBeControlled()) {
+    if (cabin->isMoving()) {
         return;
     }
 
@@ -76,6 +76,11 @@ void ElevatorController::onDoorsClosed()
     continueWork();
 }
 
+void ElevatorController::writeDebugLog(const QString &message)
+{
+    qDebug() << message;
+}
+
 void ElevatorController::connectParts()
 {
     connect(cabin, &ElevatorCabin::floorReached, this, &ElevatorController::onCabinReachedFloor);
@@ -85,9 +90,7 @@ void ElevatorController::connectParts()
     connect(doors, &ElevatorDoors::stateChanged, this, &ElevatorController::doorStateChanged);
     connect(cabin, &ElevatorCabin::logMessage, this, &ElevatorController::logMessage);
     connect(doors, &ElevatorDoors::logMessage, this, &ElevatorController::logMessage);
-    connect(this, &ElevatorController::logMessage, this, [](const QString &message) {
-        qDebug() << message;
-    });
+    connect(this, &ElevatorController::logMessage, this, &ElevatorController::writeDebugLog);
 }
 
 void ElevatorController::addRequest(const ElevatorRequest &request)
@@ -194,9 +197,4 @@ void ElevatorController::setDirection(Direction direction)
 
     currentDirection = direction;
     emit directionChanged(currentDirection);
-}
-
-bool ElevatorController::doorsCanBeControlled() const
-{
-    return !cabin->isMoving();
 }

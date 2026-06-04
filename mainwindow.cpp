@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QSignalBlocker>
 #include <QTime>
+#include <QVariant>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -62,10 +63,11 @@ void MainWindow::connectCabinButtons()
         QPushButton *button = it.value();
         const int floor = it.key();
 
-        connect(button, &QPushButton::clicked, this, [this, button, floor]() {
-            setButtonChecked(button, true);
-            system->requestCabinFloor(floor);
-        });
+        button->setProperty("floor", floor);
+        connect(button, &QPushButton::clicked,
+                this, &MainWindow::setClickedButtonChecked);
+        connect(button, &QPushButton::clicked,
+                this, &MainWindow::requestCabinFloorFromButton);
     }
 }
 
@@ -74,19 +76,23 @@ void MainWindow::connectCallButtons()
     for (auto it = callUpButtons.begin(); it != callUpButtons.end(); ++it) {
         QPushButton *button = it.value();
         const int floor = it.key();
-        connect(button, &QPushButton::clicked, this, [this, button, floor]() {
-            setButtonChecked(button, true);
-            system->requestFloorCall(floor, Direction::Up);
-        });
+
+        button->setProperty("floor", floor);
+        connect(button, &QPushButton::clicked,
+                this, &MainWindow::setClickedButtonChecked);
+        connect(button, &QPushButton::clicked,
+                this, &MainWindow::requestUpFloorCallFromButton);
     }
 
     for (auto it = callDownButtons.begin(); it != callDownButtons.end(); ++it) {
         QPushButton *button = it.value();
         const int floor = it.key();
-        connect(button, &QPushButton::clicked, this, [this, button, floor]() {
-            setButtonChecked(button, true);
-            system->requestFloorCall(floor, Direction::Down);
-        });
+
+        button->setProperty("floor", floor);
+        connect(button, &QPushButton::clicked,
+                this, &MainWindow::setClickedButtonChecked);
+        connect(button, &QPushButton::clicked,
+                this, &MainWindow::requestDownFloorCallFromButton);
     }
 }
 
@@ -106,16 +112,12 @@ void MainWindow::connectSystemSignals()
             this, &MainWindow::setCabinButtonLight);
     connect(system, &ElevatorSystem::floorCallLightChanged,
             this, &MainWindow::setFloorCallLight);
-    connect(system, &ElevatorSystem::currentFloorChanged, this, [this](int floor) {
-        ui->currentFloorValueLabel->setText(QString::number(floor));
-        shaftView->animateCabinToFloor(floor);
-    });
-    connect(system, &ElevatorSystem::targetFloorChanged, this, [this](int floor) {
-        ui->targetFloorValueLabel->setText(QString::number(floor));
-    });
-    connect(system, &ElevatorSystem::directionChanged, this, [this](Direction direction) {
-        ui->directionValueLabel->setText(directionText(direction));
-    });
+    connect(system, &ElevatorSystem::currentFloorChanged,
+            this, &MainWindow::onCurrentFloorChanged);
+    connect(system, &ElevatorSystem::targetFloorChanged,
+            this, &MainWindow::onTargetFloorChanged);
+    connect(system, &ElevatorSystem::directionChanged,
+            this, &MainWindow::onDirectionChanged);
     connect(system, &ElevatorSystem::logMessage, this, &MainWindow::appendLog);
 }
 
@@ -128,14 +130,10 @@ void MainWindow::initializeView()
     ui->cabinStateValueLabel->setText(cabinStateText(CabinState::Stopped));
     ui->doorsStateValueLabel->setText(doorStateText(DoorState::Closed));
 
-    connect(system, &ElevatorSystem::cabinStateChanged, this, [this](CabinState state) {
-        ui->cabinStateValueLabel->setText(cabinStateText(state));
-        setDoorControlsEnabled(state);
-    });
-    connect(system, &ElevatorSystem::doorStateChanged, this, [this](DoorState state) {
-        ui->doorsStateValueLabel->setText(doorStateText(state));
-        shaftView->animateDoors(state);
-    });
+    connect(system, &ElevatorSystem::cabinStateChanged,
+            this, &MainWindow::onCabinStateChanged);
+    connect(system, &ElevatorSystem::doorStateChanged,
+            this, &MainWindow::onDoorStateChanged);
 }
 
 void MainWindow::initializeFloorTexts()
@@ -153,6 +151,42 @@ void MainWindow::setButtonChecked(QPushButton *button, bool checked)
 
     const QSignalBlocker blocker(button);
     button->setChecked(checked);
+}
+
+void MainWindow::setClickedButtonChecked()
+{
+    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    setButtonChecked(button, true);
+}
+
+void MainWindow::requestCabinFloorFromButton()
+{
+    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    if (!button) {
+        return;
+    }
+
+    system->requestCabinFloor(button->property("floor").toInt());
+}
+
+void MainWindow::requestUpFloorCallFromButton()
+{
+    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    if (!button) {
+        return;
+    }
+
+    system->requestFloorCall(button->property("floor").toInt(), Direction::Up);
+}
+
+void MainWindow::requestDownFloorCallFromButton()
+{
+    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    if (!button) {
+        return;
+    }
+
+    system->requestFloorCall(button->property("floor").toInt(), Direction::Down);
 }
 
 void MainWindow::setCabinButtonLight(int floor, bool enabled)
@@ -182,6 +216,34 @@ void MainWindow::appendLog(const QString &message)
 {
     const QString time = QTime::currentTime().toString("hh:mm:ss");
     ui->eventLogEdit->appendPlainText(QString("[%1] %2").arg(time, message));
+}
+
+void MainWindow::onCurrentFloorChanged(int floor)
+{
+    ui->currentFloorValueLabel->setText(QString::number(floor));
+    shaftView->animateCabinToFloor(floor);
+}
+
+void MainWindow::onTargetFloorChanged(int floor)
+{
+    ui->targetFloorValueLabel->setText(QString::number(floor));
+}
+
+void MainWindow::onDirectionChanged(Direction direction)
+{
+    ui->directionValueLabel->setText(directionText(direction));
+}
+
+void MainWindow::onCabinStateChanged(CabinState state)
+{
+    ui->cabinStateValueLabel->setText(cabinStateText(state));
+    setDoorControlsEnabled(state);
+}
+
+void MainWindow::onDoorStateChanged(DoorState state)
+{
+    ui->doorsStateValueLabel->setText(doorStateText(state));
+    shaftView->animateDoors(state);
 }
 
 QString MainWindow::directionText(Direction direction) const
