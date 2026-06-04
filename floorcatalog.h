@@ -12,7 +12,7 @@ public:
 
 private:
     static constexpr int FloorCount = 5;
-    static constexpr int FloorNumbers[FloorCount] = {1, 2, 3, 67, 5};
+    static constexpr int FloorNumbers[FloorCount] = {1, 2, 3, 4, 5};
 };
 
 #endif // FLOORCATALOG_H

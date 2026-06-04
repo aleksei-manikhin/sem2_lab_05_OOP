@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Симулятор пассажирского лифта — 5 этажей</string>
+   <string>Моделирование лифта</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
@@ -362,7 +362,7 @@ QLabel {
          <item>
           <widget class="QLabel" name="floorNumberLabel4">
            <property name="text">
-            <string>67</string>
+            <string>4</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -372,7 +372,7 @@ QLabel {
          <item>
           <widget class="QLabel" name="floorCaptionLabel4">
            <property name="text">
-            <string>Этаж 67</string>
+            <string>Этаж 4</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1107,7 +1107,7 @@ QLabel {
               </size>
              </property>
              <property name="text">
-              <string>67</string>
+              <string>4</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
