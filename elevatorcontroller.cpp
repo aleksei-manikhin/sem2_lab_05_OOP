@@ -54,8 +54,13 @@ void ElevatorController::closeDoorsRequested()
         return;
     }
 
-    emit logMessage("Close doors button accepted");
+    if (doors->isClosed()) {
+        emit logMessage("Doors are already closed");
+        return;
+    }
+
     doors->forceClose();
+    emit logMessage("Close doors button accepted");
 }
 
 void ElevatorController::onCabinReachedFloor(int floor)
