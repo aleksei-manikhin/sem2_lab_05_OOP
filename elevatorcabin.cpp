@@ -36,8 +36,6 @@ void ElevatorCabin::move(Direction direction)
     }
 
     setDirection(direction);
-    setState(CabinState::PreparingToMove);
-
     setState(CabinState::Moving);
     emit logMessage("Cabin started moving");
     moveTimer.start(MoveTimeMs);

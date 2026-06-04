@@ -20,7 +20,6 @@ public:
 public slots:
     void open();
     void close();
-    void forceClose();
     void extendOpenTime();
 
 signals:

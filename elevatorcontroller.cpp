@@ -58,7 +58,7 @@ void ElevatorController::closeDoorsRequested()
         return;
     }
 
-    doors->forceClose();
+    doors->close();
     emit logMessage("Close doors button accepted");
 }
 

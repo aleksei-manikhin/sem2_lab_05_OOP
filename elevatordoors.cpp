@@ -52,11 +52,6 @@ void ElevatorDoors::close()
     startClosing();
 }
 
-void ElevatorDoors::forceClose()
-{
-    close();
-}
-
 void ElevatorDoors::extendOpenTime()
 {
     if (doorState != DoorState::Open) {

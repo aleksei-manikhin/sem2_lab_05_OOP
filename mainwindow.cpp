@@ -172,8 +172,7 @@ void MainWindow::setFloorCallLight(int floor, Direction direction, bool enabled)
 
 void MainWindow::setDoorControlsEnabled(CabinState state)
 {
-    const bool enabled = state != CabinState::Moving
-            && state != CabinState::PreparingToMove;
+    const bool enabled = state != CabinState::Moving;
 
     ui->openDoorsButton->setEnabled(enabled);
     ui->closeDoorsButton->setEnabled(enabled);
@@ -200,10 +199,6 @@ QString MainWindow::directionText(Direction direction) const
 
 QString MainWindow::cabinStateText(CabinState state) const
 {
-    if (state == CabinState::PreparingToMove) {
-        return "Preparing";
-    }
-
     if (state == CabinState::Moving) {
         return "Moving";
     }

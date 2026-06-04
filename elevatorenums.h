@@ -11,7 +11,6 @@ enum class Direction
 enum class CabinState
 {
     Stopped,
-    PreparingToMove,
     Moving,
     Locked,
     Unlocked
