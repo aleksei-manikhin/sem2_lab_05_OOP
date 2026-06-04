@@ -2,32 +2,42 @@
 
 int FloorCatalog::minPosition()
 {
-    return 1;
+    return FirstPosition;
 }
 
 int FloorCatalog::maxPosition()
+{
+    return LastPosition;
+}
+
+int FloorCatalog::positionCount()
 {
     return FloorCount;
 }
 
 int FloorCatalog::numberFromPosition(int position)
 {
-    if (position < minPosition() || position > maxPosition()) {
+    if (!isKnownPosition(position)) {
         return minPosition();
     }
 
-    return FloorNumbers[position - 1];
+    return FloorNumbers[position - FirstPosition];
 }
 
 int FloorCatalog::positionFromNumber(int floorNumber)
 {
     for (int i = 0; i < FloorCount; ++i) {
         if (FloorNumbers[i] == floorNumber) {
-            return i + 1;
+            return i + FirstPosition;
         }
     }
 
     return minPosition();
+}
+
+bool FloorCatalog::isKnownPosition(int position)
+{
+    return position >= minPosition() && position <= maxPosition();
 }
 
 bool FloorCatalog::isKnownFloorNumber(int floorNumber)

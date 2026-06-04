@@ -2,6 +2,7 @@
 #define ELEVATORCABIN_H
 
 #include "elevatorenums.h"
+#include "floorcatalog.h"
 
 #include <QObject>
 #include <QTimer>
@@ -11,7 +12,7 @@ class ElevatorCabin : public QObject
     Q_OBJECT
 
 public:
-    explicit ElevatorCabin(int minFloor = 1, int maxFloor = 5, QObject *parent = nullptr);
+    explicit ElevatorCabin(QObject *parent = nullptr);
 
     int currentFloor() const;
     Direction direction() const;
@@ -39,9 +40,7 @@ private:
     void setDirection(Direction direction);
     void arriveToNextFloor();
 
-    int minFloor = 1;
-    int maxFloor = 5;
-    int currentFloorNumber = 1;
+    int currentFloorNumber = FloorCatalog::FirstPosition;
     Direction cabinDirection = Direction::Idle;
     CabinState cabinState = CabinState::Stopped;
     QTimer moveTimer;

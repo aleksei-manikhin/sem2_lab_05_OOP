@@ -4,6 +4,7 @@
 #include "elevatorcabin.h"
 #include "elevatordoors.h"
 #include "elevatorscheduler.h"
+#include "floorcatalog.h"
 
 #include <QObject>
 
@@ -12,7 +13,7 @@ class ElevatorController : public QObject
     Q_OBJECT
 
 public:
-    explicit ElevatorController(int minFloor = 1, int maxFloor = 5, QObject *parent = nullptr);
+    explicit ElevatorController(QObject *parent = nullptr);
 
     int currentFloor() const;
     Direction direction() const;
@@ -56,7 +57,7 @@ private:
     ElevatorScheduler scheduler;
     Direction currentDirection = Direction::Idle;
     ControllerState controllerState = ControllerState::Idle;
-    int targetFloor = 1;
+    int targetFloor = FloorCatalog::FirstPosition;
 };
 
 #endif // ELEVATORCONTROLLER_H

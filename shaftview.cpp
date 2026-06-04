@@ -75,10 +75,12 @@ QRect ShaftView::cabinGeometryForFloor(int floor) const
 {
     const QRect current = cabinFrame->geometry();
     const int position = FloorCatalog::positionFromNumber(floor);
-    const int safeFloor = qBound(MinFloor, position, MaxFloor);
+    const int safeFloor = qBound(FloorCatalog::minPosition(),
+                                 position,
+                                 FloorCatalog::maxPosition());
     const int floorHeight = 112;
     const int baseY = 456;
-    const int y = baseY - (safeFloor - MinFloor) * floorHeight;
+    const int y = baseY - (safeFloor - FloorCatalog::minPosition()) * floorHeight;
 
     return QRect(current.x(), y, current.width(), current.height());
 }

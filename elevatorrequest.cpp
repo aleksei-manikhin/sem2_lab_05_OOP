@@ -7,16 +7,6 @@ ElevatorRequest::ElevatorRequest(int floor, RequestType type, Direction directio
 {
 }
 
-ElevatorRequest ElevatorRequest::cabin(int floor)
-{
-    return ElevatorRequest(floor, RequestType::Cabin, Direction::Idle);
-}
-
-ElevatorRequest ElevatorRequest::floorCall(int floor, Direction direction)
-{
-    return ElevatorRequest(floor, RequestType::FloorCall, direction);
-}
-
 int ElevatorRequest::getFloor() const
 {
     return floorNumber;

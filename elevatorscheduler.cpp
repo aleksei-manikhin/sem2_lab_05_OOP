@@ -2,26 +2,6 @@
 
 #include <QtGlobal>
 
-ElevatorScheduler::ElevatorScheduler(int minFloor, int maxFloor)
-    : minFloor(minFloor),
-      maxFloor(maxFloor)
-{
-}
-
-bool ElevatorScheduler::addCabinRequest(int floor)
-{
-    return addRequest(ElevatorRequest::cabin(floor));
-}
-
-bool ElevatorScheduler::addFloorCall(int floor, Direction direction)
-{
-    if (direction == Direction::Idle) {
-        return false;
-    }
-
-    return addRequest(ElevatorRequest::floorCall(floor, direction));
-}
-
 bool ElevatorScheduler::addRequest(const ElevatorRequest &request)
 {
     if (!isValidRequest(request) || containsRequest(request)) {
@@ -35,11 +15,6 @@ bool ElevatorScheduler::addRequest(const ElevatorRequest &request)
 bool ElevatorScheduler::hasRequests() const
 {
     return !requests.empty();
-}
-
-bool ElevatorScheduler::hasRequestForButton(const ElevatorRequest &request) const
-{
-    return containsRequest(request);
 }
 
 bool ElevatorScheduler::shouldStopAt(int floor, Direction travelDirection) const
@@ -113,7 +88,7 @@ std::vector<ElevatorRequest> ElevatorScheduler::getRequests() const
 
 bool ElevatorScheduler::isValidFloor(int floor) const
 {
-    return floor >= minFloor && floor <= maxFloor;
+    return FloorCatalog::isKnownPosition(floor);
 }
 
 bool ElevatorScheduler::isValidRequest(const ElevatorRequest &request) const
@@ -127,11 +102,11 @@ bool ElevatorScheduler::isValidRequest(const ElevatorRequest &request) const
     }
 
     if (request.getDirection() == Direction::Up) {
-        return request.getFloor() < maxFloor;
+        return request.getFloor() < FloorCatalog::maxPosition();
     }
 
     if (request.getDirection() == Direction::Down) {
-        return request.getFloor() > minFloor;
+        return request.getFloor() > FloorCatalog::minPosition();
     }
 
     return false;
@@ -162,7 +137,7 @@ bool ElevatorScheduler::hasRequestsAhead(int currentFloor, Direction direction) 
 int ElevatorScheduler::nearestAnyFloor(int currentFloor) const
 {
     int nearest = currentFloor;
-    int bestDistance = maxFloor - minFloor + 1;
+    int bestDistance = FloorCatalog::positionCount();
 
     for (const ElevatorRequest &request : requests) {
         const int distance = qAbs(request.getFloor() - currentFloor);
@@ -178,7 +153,7 @@ int ElevatorScheduler::nearestAnyFloor(int currentFloor) const
 int ElevatorScheduler::nearestFloorInDirection(int currentFloor, Direction direction) const
 {
     int nearest = currentFloor;
-    int bestDistance = maxFloor - minFloor + 1;
+    int bestDistance = FloorCatalog::positionCount();
 
     for (const ElevatorRequest &request : requests) {
         if (request.isAheadOf(currentFloor, direction)) {

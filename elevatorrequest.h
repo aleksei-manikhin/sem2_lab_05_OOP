@@ -2,15 +2,13 @@
 #define ELEVATORREQUEST_H
 
 #include "elevatorenums.h"
+#include "floorcatalog.h"
 
 class ElevatorRequest
 {
 public:
     ElevatorRequest() = default;
     ElevatorRequest(int floor, RequestType type, Direction direction);
-
-    static ElevatorRequest cabin(int floor);
-    static ElevatorRequest floorCall(int floor, Direction direction);
 
     int getFloor() const;
     RequestType getType() const;
@@ -24,7 +22,7 @@ public:
     bool shouldStopAt(int elevatorFloor, Direction travelDirection, bool noMoreAhead) const;
 
 private:
-    int floorNumber = 1;
+    int floorNumber = FloorCatalog::FirstPosition;
     RequestType requestType = RequestType::Cabin;
     Direction requestDirection = Direction::Idle;
 };

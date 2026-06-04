@@ -49,8 +49,6 @@ private:
     DoorState pendingDoorState = DoorState::Closed;
     bool hasPendingDoorAnimation = false;
 
-    static constexpr int MinFloor = 1;
-    static constexpr int MaxFloor = 5;
     static constexpr int CabinAnimationMs = 650;
     static constexpr int DoorAnimationMs = 500;
 };

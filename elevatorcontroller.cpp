@@ -3,12 +3,11 @@
 
 #include <QDebug>
 
-ElevatorController::ElevatorController(int minFloor, int maxFloor, QObject *parent)
+ElevatorController::ElevatorController(QObject *parent)
     : QObject(parent),
-      cabin(new ElevatorCabin(minFloor, maxFloor, this)),
+      cabin(new ElevatorCabin(this)),
       doors(new ElevatorDoors(this)),
-      scheduler(minFloor, maxFloor),
-      targetFloor(minFloor)
+      targetFloor(FloorCatalog::minPosition())
 {
     connectParts();
 }
@@ -30,12 +29,12 @@ ControllerState ElevatorController::state() const
 
 void ElevatorController::addCabinRequest(int floor)
 {
-    addRequest(ElevatorRequest::cabin(floor));
+    addRequest(ElevatorRequest(floor, RequestType::Cabin, Direction::Idle));
 }
 
 void ElevatorController::addFloorCall(int floor, Direction direction)
 {
-    addRequest(ElevatorRequest::floorCall(floor, direction));
+    addRequest(ElevatorRequest(floor, RequestType::FloorCall, direction));
 }
 
 void ElevatorController::openDoorsRequested()
