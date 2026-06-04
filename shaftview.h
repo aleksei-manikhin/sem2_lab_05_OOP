@@ -25,6 +25,9 @@ public slots:
     void animateCabinToFloor(int floor);
     void animateDoors(DoorState state);
 
+private slots:
+    void playPendingDoorAnimation();
+
 private:
     QRect cabinGeometryForFloor(int floor) const;
     void animateDoorPair(const QRect &leftTarget, const QRect &rightTarget);
@@ -43,6 +46,8 @@ private:
     QRect closedRightDoor;
     QRect openedLeftDoor;
     QRect openedRightDoor;
+    DoorState pendingDoorState = DoorState::Closed;
+    bool hasPendingDoorAnimation = false;
 
     static constexpr int MinFloor = 1;
     static constexpr int MaxFloor = 5;

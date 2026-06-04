@@ -1,6 +1,7 @@
 #include "shaftview.h"
 #include "floorcatalog.h"
 
+#include <QAbstractAnimation>
 #include <QFrame>
 #include <QtGlobal>
 
@@ -23,6 +24,9 @@ ShaftView::ShaftView(QFrame *shaftFrame,
     setupAnimation(&cabinAnimation, CabinAnimationMs);
     setupAnimation(&leftDoorAnimation, DoorAnimationMs);
     setupAnimation(&rightDoorAnimation, DoorAnimationMs);
+
+    connect(&cabinAnimation, &QPropertyAnimation::finished,
+            this, &ShaftView::playPendingDoorAnimation);
 }
 
 void ShaftView::animateCabinToFloor(int floor)
@@ -42,11 +46,29 @@ void ShaftView::animateCabinToFloor(int floor)
 void ShaftView::animateDoors(DoorState state)
 {
     if (state == DoorState::Opening || state == DoorState::Open) {
+        if (cabinAnimation.state() == QAbstractAnimation::Running) {
+            pendingDoorState = state;
+            hasPendingDoorAnimation = true;
+            return;
+        }
+
         animateDoorPair(openedLeftDoor, openedRightDoor);
         return;
     }
 
+    hasPendingDoorAnimation = false;
     animateDoorPair(closedLeftDoor, closedRightDoor);
+}
+
+void ShaftView::playPendingDoorAnimation()
+{
+    if (!hasPendingDoorAnimation) {
+        return;
+    }
+
+    const DoorState state = pendingDoorState;
+    hasPendingDoorAnimation = false;
+    animateDoors(state);
 }
 
 QRect ShaftView::cabinGeometryForFloor(int floor) const
