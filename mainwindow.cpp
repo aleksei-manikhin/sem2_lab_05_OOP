@@ -204,14 +204,6 @@ void MainWindow::setFloorCallLight(int floor, Direction direction, bool enabled)
     setButtonChecked(callDownButtons.value(floor, nullptr), enabled);
 }
 
-void MainWindow::setDoorControlsEnabled(CabinState state)
-{
-    const bool enabled = state != CabinState::Moving;
-
-    ui->openDoorsButton->setEnabled(enabled);
-    ui->closeDoorsButton->setEnabled(enabled);
-}
-
 void MainWindow::appendLog(const QString &message)
 {
     const QString time = QTime::currentTime().toString("hh:mm:ss");
@@ -237,7 +229,6 @@ void MainWindow::onDirectionChanged(Direction direction)
 void MainWindow::onCabinStateChanged(CabinState state)
 {
     ui->cabinStateValueLabel->setText(cabinStateText(state));
-    setDoorControlsEnabled(state);
 }
 
 void MainWindow::onDoorStateChanged(DoorState state)

@@ -48,7 +48,6 @@ private:
     void setButtonChecked(QPushButton *button, bool checked);
     void setCabinButtonLight(int floor, bool enabled);
     void setFloorCallLight(int floor, Direction direction, bool enabled);
-    void setDoorControlsEnabled(CabinState state);
     void appendLog(const QString &message);
 
     QString directionText(Direction direction) const;

@@ -40,6 +40,7 @@ void ElevatorController::addFloorCall(int floor, Direction direction)
 void ElevatorController::openDoorsRequested()
 {
     if (cabin->isMoving()) {
+        emit logMessage("Cabin is moving, so doors cannot be opened");
         return;
     }
 
@@ -50,6 +51,7 @@ void ElevatorController::openDoorsRequested()
 void ElevatorController::closeDoorsRequested()
 {
     if (cabin->isMoving()) {
+        emit logMessage("Cabin is moving, so doors cannot be closed");
         return;
     }
 

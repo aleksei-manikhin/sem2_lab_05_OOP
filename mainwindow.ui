@@ -1151,6 +1151,19 @@ QLabel {
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="cancelDoorsButton">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>56</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Отмена</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="closeDoorsButton">
              <property name="minimumSize">
               <size>
