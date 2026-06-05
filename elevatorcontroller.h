@@ -7,6 +7,7 @@
 #include "floorcatalog.h"
 
 #include <QObject>
+#include <QString>
 
 class ElevatorController : public QObject
 {
@@ -24,6 +25,7 @@ public slots:
     void addFloorCall(int floor, Direction direction);
     void openDoorsRequested();
     void closeDoorsRequested();
+    void cancelCabinRequests();
 
 signals:
     void cabinButtonLightChanged(int floor, bool enabled);
@@ -48,6 +50,9 @@ private:
     bool serveCurrentFloorIfNeeded();
     void startMovingToNextTarget();
     void stopAtCurrentFloor();
+    void stopAtCurrentFloor(Direction serviceDirection, const QString &message);
+    void stopForCancellation();
+    int nearestStopFloor() const;
     void clearServedButtons(const std::vector<ElevatorRequest> &served);
     void setState(ControllerState state);
     void setDirection(Direction direction);
@@ -58,6 +63,7 @@ private:
     Direction currentDirection = Direction::Idle;
     ControllerState controllerState = ControllerState::Idle;
     int targetFloor = FloorCatalog::FirstPosition;
+    bool cancellationStopPending = false;
 };
 
 #endif // ELEVATORCONTROLLER_H

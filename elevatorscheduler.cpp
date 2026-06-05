@@ -64,6 +64,22 @@ Direction ElevatorScheduler::nextDirection(int currentFloor, Direction currentDi
     return Direction::Idle;
 }
 
+std::vector<ElevatorRequest> ElevatorScheduler::takeCabinRequests()
+{
+    std::vector<ElevatorRequest> cancelled;
+
+    for (auto it = requests.begin(); it != requests.end();) {
+        if (it->isCabinRequest()) {
+            cancelled.push_back(*it);
+            it = requests.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+    return cancelled;
+}
+
 std::vector<ElevatorRequest> ElevatorScheduler::takeServedAt(int floor, Direction travelDirection)
 {
     std::vector<ElevatorRequest> served;

@@ -100,6 +100,8 @@ void MainWindow::connectDoorButtons()
 {
     connect(ui->openDoorsButton, &QPushButton::clicked,
             system, &ElevatorSystem::requestDoorsOpen);
+    connect(ui->cancelDoorsButton, &QPushButton::clicked,
+            system, &ElevatorSystem::requestCabinCancellation);
     connect(ui->closeDoorsButton, &QPushButton::clicked,
             system, &ElevatorSystem::requestDoorsClose);
     connect(ui->clearLogButton, &QPushButton::clicked,

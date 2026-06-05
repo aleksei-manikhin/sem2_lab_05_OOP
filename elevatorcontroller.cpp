@@ -64,8 +64,36 @@ void ElevatorController::closeDoorsRequested()
     emit logMessage("Close doors button accepted");
 }
 
+void ElevatorController::cancelCabinRequests()
+{
+    const std::vector<ElevatorRequest> cancelled = scheduler.takeCabinRequests();
+    clearServedButtons(cancelled);
+
+    if (cancelled.empty()) {
+        emit logMessage("No cabin requests to cancel");
+    } else {
+        emit logMessage("Cabin requests cancelled");
+    }
+
+    if (cabin->isMoving()) {
+        cancellationStopPending = true;
+        targetFloor = nearestStopFloor();
+        emit targetFloorChanged(targetFloor);
+        emit logMessage(QString("Elevator will stop at nearest floor %1")
+                        .arg(FloorCatalog::numberFromPosition(targetFloor)));
+        return;
+    }
+
+    stopForCancellation();
+}
+
 void ElevatorController::onCabinReachedFloor(int floor)
 {
+    if (cancellationStopPending) {
+        stopForCancellation();
+        return;
+    }
+
     if (!scheduler.shouldStopAt(floor, currentDirection)) {
         return;
     }
@@ -160,14 +188,45 @@ void ElevatorController::startMovingToNextTarget()
 
 void ElevatorController::stopAtCurrentFloor()
 {
+    stopAtCurrentFloor(currentDirection,
+                       QString("Target reached at floor %1")
+                       .arg(FloorCatalog::numberFromPosition(currentFloor())));
+}
+
+void ElevatorController::stopAtCurrentFloor(Direction serviceDirection, const QString &message)
+{
     cabin->stop();
     setState(ControllerState::TargetReached);
-    emit logMessage(QString("Target reached at floor %1")
-                    .arg(FloorCatalog::numberFromPosition(currentFloor())));
+    emit logMessage(message);
 
-    const std::vector<ElevatorRequest> served = scheduler.takeServedAt(currentFloor(), currentDirection);
+    const std::vector<ElevatorRequest> served = scheduler.takeServedAt(currentFloor(), serviceDirection);
     clearServedButtons(served);
     doors->open();
+}
+
+void ElevatorController::stopForCancellation()
+{
+    cancellationStopPending = false;
+
+    setDirection(Direction::Idle);
+    targetFloor = currentFloor();
+    emit targetFloorChanged(targetFloor);
+    stopAtCurrentFloor(Direction::Idle,
+                       QString("Cancellation stop at floor %1")
+                       .arg(FloorCatalog::numberFromPosition(currentFloor())));
+}
+
+int ElevatorController::nearestStopFloor() const
+{
+    if (currentDirection == Direction::Up && currentFloor() < FloorCatalog::maxPosition()) {
+        return currentFloor() + 1;
+    }
+
+    if (currentDirection == Direction::Down && currentFloor() > FloorCatalog::minPosition()) {
+        return currentFloor() - 1;
+    }
+
+    return currentFloor();
 }
 
 void ElevatorController::clearServedButtons(const std::vector<ElevatorRequest> &served)

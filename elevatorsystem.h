@@ -21,6 +21,7 @@ public slots:
     void requestFloorCall(int floor, Direction direction);
     void requestDoorsOpen();
     void requestDoorsClose();
+    void requestCabinCancellation();
 
 private slots:
     void onControllerCurrentFloorChanged(int position);

@@ -16,6 +16,7 @@ public:
 
     int nextTarget(int currentFloor, Direction currentDirection) const;
     Direction nextDirection(int currentFloor, Direction currentDirection) const;
+    std::vector<ElevatorRequest> takeCabinRequests();
     std::vector<ElevatorRequest> takeServedAt(int floor, Direction travelDirection);
     std::vector<ElevatorRequest> getRequests() const;
 

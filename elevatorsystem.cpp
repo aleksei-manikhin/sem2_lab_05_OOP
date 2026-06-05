@@ -43,6 +43,11 @@ void ElevatorSystem::requestDoorsClose()
     controller->closeDoorsRequested();
 }
 
+void ElevatorSystem::requestCabinCancellation()
+{
+    controller->cancelCabinRequests();
+}
+
 void ElevatorSystem::onControllerCurrentFloorChanged(int position)
 {
     emit currentFloorChanged(FloorCatalog::numberFromPosition(position));
