@@ -19,11 +19,14 @@ public:
     CabinState state() const;
     bool isMoving() const;
 
+    static constexpr int MoveTimeMs = 1200;
+
 public slots:
     void move(Direction direction);
     void stop();
 
 signals:
+    void movementStarted(int destinationFloor);
     void floorChanged(int floor);
     void floorReached(int floor);
     void stateChanged(CabinState state);
@@ -45,7 +48,6 @@ private:
     CabinState cabinState = CabinState::Stopped;
     QTimer moveTimer;
 
-    static constexpr int MoveTimeMs = 900;
 };
 
 #endif // ELEVATORCABIN_H

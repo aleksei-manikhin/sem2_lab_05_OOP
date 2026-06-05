@@ -17,6 +17,10 @@ public:
     bool isClosed() const;
     bool isOpen() const;
 
+    static constexpr int OpeningTimeMs = 900;
+    static constexpr int OpenedTimeMs = 1200;
+    static constexpr int ClosingTimeMs = 900;
+
 public slots:
     void open();
     void close();
@@ -44,9 +48,6 @@ private:
     QTimer openedTimer;
     QTimer closingTimer;
 
-    static constexpr int OpeningTimeMs = 700;
-    static constexpr int OpenedTimeMs = 1200;
-    static constexpr int ClosingTimeMs = 700;
 };
 
 #endif // ELEVATORDOORS_H

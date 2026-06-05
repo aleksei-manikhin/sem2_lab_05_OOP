@@ -29,6 +29,7 @@ private slots:
     void requestCabinFloorFromButton();
     void requestUpFloorCallFromButton();
     void requestDownFloorCallFromButton();
+    void onCabinMovementStarted(int destinationFloor);
     void onCurrentFloorChanged(int floor);
     void onTargetFloorChanged(int floor);
     void onDirectionChanged(Direction direction);

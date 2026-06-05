@@ -113,6 +113,8 @@ void ElevatorController::writeDebugLog(const QString &message)
 
 void ElevatorController::connectParts()
 {
+    connect(cabin, &ElevatorCabin::movementStarted,
+            this, &ElevatorController::cabinMovementStarted);
     connect(cabin, &ElevatorCabin::floorReached, this, &ElevatorController::onCabinReachedFloor);
     connect(cabin, &ElevatorCabin::floorChanged, this, &ElevatorController::currentFloorChanged);
     connect(cabin, &ElevatorCabin::stateChanged, this, &ElevatorController::cabinStateChanged);

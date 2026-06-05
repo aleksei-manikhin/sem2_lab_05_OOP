@@ -114,6 +114,8 @@ void MainWindow::connectSystemSignals()
             this, &MainWindow::setCabinButtonLight);
     connect(system, &ElevatorSystem::floorCallLightChanged,
             this, &MainWindow::setFloorCallLight);
+    connect(system, &ElevatorSystem::cabinMovementStarted,
+            this, &MainWindow::onCabinMovementStarted);
     connect(system, &ElevatorSystem::currentFloorChanged,
             this, &MainWindow::onCurrentFloorChanged);
     connect(system, &ElevatorSystem::targetFloorChanged,
@@ -212,10 +214,14 @@ void MainWindow::appendLog(const QString &message)
     ui->eventLogEdit->appendPlainText(QString("[%1] %2").arg(time, message));
 }
 
+void MainWindow::onCabinMovementStarted(int destinationFloor)
+{
+    shaftView->animateCabinToFloor(destinationFloor);
+}
+
 void MainWindow::onCurrentFloorChanged(int floor)
 {
     ui->currentFloorValueLabel->setText(QString::number(floor));
-    shaftView->animateCabinToFloor(floor);
 }
 
 void MainWindow::onTargetFloorChanged(int floor)

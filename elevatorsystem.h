@@ -24,12 +24,14 @@ public slots:
     void requestCabinCancellation();
 
 private slots:
+    void onControllerCabinMovementStarted(int position);
     void onControllerCurrentFloorChanged(int position);
     void onControllerTargetFloorChanged(int position);
     void onControllerCabinButtonLightChanged(int position, bool enabled);
     void onControllerFloorCallLightChanged(int position, Direction direction, bool enabled);
 
 signals:
+    void cabinMovementStarted(int destinationFloor);
     void cabinButtonLightChanged(int floor, bool enabled);
     void floorCallLightChanged(int floor, Direction direction, bool enabled);
     void currentFloorChanged(int floor);

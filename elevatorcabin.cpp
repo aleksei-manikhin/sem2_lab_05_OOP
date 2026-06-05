@@ -39,6 +39,7 @@ void ElevatorCabin::move(Direction direction)
     setState(CabinState::Moving);
     emit logMessage("Cabin started moving");
     moveTimer.start(MoveTimeMs);
+    emit movementStarted(nextFloor());
 }
 
 void ElevatorCabin::stop()
@@ -117,4 +118,8 @@ void ElevatorCabin::arriveToNextFloor()
     emit logMessage(QString("Cabin arrived at floor %1")
                     .arg(FloorCatalog::numberFromPosition(currentFloorNumber)));
     emit floorReached(currentFloorNumber);
+
+    if (isMoving() && canMove(cabinDirection)) {
+        emit movementStarted(nextFloor());
+    }
 }

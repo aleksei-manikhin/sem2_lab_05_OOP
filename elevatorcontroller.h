@@ -28,6 +28,7 @@ public slots:
     void cancelCabinRequests();
 
 signals:
+    void cabinMovementStarted(int destinationFloor);
     void cabinButtonLightChanged(int floor, bool enabled);
     void floorCallLightChanged(int floor, Direction direction, bool enabled);
     void currentFloorChanged(int floor);

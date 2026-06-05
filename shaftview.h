@@ -1,6 +1,8 @@
 #ifndef SHAFTVIEW_H
 #define SHAFTVIEW_H
 
+#include "elevatorcabin.h"
+#include "elevatordoors.h"
 #include "elevatorenums.h"
 
 #include <QObject>
@@ -30,7 +32,7 @@ private slots:
 
 private:
     QRect cabinGeometryForFloor(int floor) const;
-    void animateDoorPair(const QRect &leftTarget, const QRect &rightTarget);
+    void animateDoorPair(const QRect &leftTarget, const QRect &rightTarget, int duration);
     void setupAnimation(QPropertyAnimation *animation, int duration);
 
     QPointer<QFrame> shaftFrame;
@@ -49,8 +51,7 @@ private:
     DoorState pendingDoorState = DoorState::Closed;
     bool hasPendingDoorAnimation = false;
 
-    static constexpr int CabinAnimationMs = 650;
-    static constexpr int DoorAnimationMs = 500;
+    static constexpr int CabinAnimationMs = ElevatorCabin::MoveTimeMs;
 };
 
 #endif // SHAFTVIEW_H

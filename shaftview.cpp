@@ -22,8 +22,8 @@ ShaftView::ShaftView(QFrame *shaftFrame,
     openedRightDoor = QRect(118, 0, 10, closedRightDoor.height());
 
     setupAnimation(&cabinAnimation, CabinAnimationMs);
-    setupAnimation(&leftDoorAnimation, DoorAnimationMs);
-    setupAnimation(&rightDoorAnimation, DoorAnimationMs);
+    setupAnimation(&leftDoorAnimation, ElevatorDoors::OpeningTimeMs);
+    setupAnimation(&rightDoorAnimation, ElevatorDoors::OpeningTimeMs);
 
     connect(&cabinAnimation, &QPropertyAnimation::finished,
             this, &ShaftView::playPendingDoorAnimation);
@@ -52,12 +52,12 @@ void ShaftView::animateDoors(DoorState state)
             return;
         }
 
-        animateDoorPair(openedLeftDoor, openedRightDoor);
+        animateDoorPair(openedLeftDoor, openedRightDoor, ElevatorDoors::OpeningTimeMs);
         return;
     }
 
     hasPendingDoorAnimation = false;
-    animateDoorPair(closedLeftDoor, closedRightDoor);
+    animateDoorPair(closedLeftDoor, closedRightDoor, ElevatorDoors::ClosingTimeMs);
 }
 
 void ShaftView::playPendingDoorAnimation()
@@ -85,11 +85,13 @@ QRect ShaftView::cabinGeometryForFloor(int floor) const
     return QRect(current.x(), y, current.width(), current.height());
 }
 
-void ShaftView::animateDoorPair(const QRect &leftTarget, const QRect &rightTarget)
+void ShaftView::animateDoorPair(const QRect &leftTarget, const QRect &rightTarget, int duration)
 {
     leftDoorAnimation.stop();
     rightDoorAnimation.stop();
 
+    leftDoorAnimation.setDuration(duration);
+    rightDoorAnimation.setDuration(duration);
     leftDoorAnimation.setEndValue(leftTarget);
     rightDoorAnimation.setEndValue(rightTarget);
     leftDoorAnimation.start();

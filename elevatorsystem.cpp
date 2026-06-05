@@ -48,6 +48,11 @@ void ElevatorSystem::requestCabinCancellation()
     controller->cancelCabinRequests();
 }
 
+void ElevatorSystem::onControllerCabinMovementStarted(int position)
+{
+    emit cabinMovementStarted(FloorCatalog::numberFromPosition(position));
+}
+
 void ElevatorSystem::onControllerCurrentFloorChanged(int position)
 {
     emit currentFloorChanged(FloorCatalog::numberFromPosition(position));
@@ -72,6 +77,8 @@ void ElevatorSystem::onControllerFloorCallLightChanged(int position,
 
 void ElevatorSystem::connectController()
 {
+    connect(controller, &ElevatorController::cabinMovementStarted,
+            this, &ElevatorSystem::onControllerCabinMovementStarted);
     connect(controller, &ElevatorController::currentFloorChanged,
             this, &ElevatorSystem::onControllerCurrentFloorChanged);
     connect(controller, &ElevatorController::targetFloorChanged,
