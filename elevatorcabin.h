@@ -5,7 +5,10 @@
 #include "floorcatalog.h"
 
 #include <QObject>
+#include <QPointer>
 #include <QTimer>
+
+class ShaftView;
 
 class ElevatorCabin : public QObject
 {
@@ -19,14 +22,13 @@ public:
     CabinState state() const;
     bool isMoving() const;
 
-    static constexpr int MoveTimeMs = 1200;
+    void setShaftView(ShaftView* view);
 
 public slots:
     void move(Direction direction);
     void stop();
 
 signals:
-    void movementStarted(int destinationFloor);
     void floorChanged(int floor);
     void floorReached(int floor);
     void stateChanged(CabinState state);
@@ -47,7 +49,9 @@ private:
     Direction cabinDirection = Direction::Idle;
     CabinState cabinState = CabinState::Stopped;
     QTimer moveTimer;
+    QPointer<ShaftView> shaftView;
 
+    static constexpr int MoveTimeMs = 1200;
 };
 
 #endif // ELEVATORCABIN_H

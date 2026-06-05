@@ -31,11 +31,11 @@ MainWindow::~MainWindow()
 void MainWindow::setupModel()
 {
     system = new ElevatorSystem(this);
-    shaftView = new ShaftView(ui->shaftFrame,
-                              ui->elevatorCabinFrame,
+    shaftView = new ShaftView(ui->elevatorCabinFrame,
                               ui->leftDoorFrame,
                               ui->rightDoorFrame,
                               this);
+    system->setShaftView(shaftView);
 }
 
 void MainWindow::setupButtonMaps()
@@ -114,8 +114,6 @@ void MainWindow::connectSystemSignals()
             this, &MainWindow::setCabinButtonLight);
     connect(system, &ElevatorSystem::floorCallLightChanged,
             this, &MainWindow::setFloorCallLight);
-    connect(system, &ElevatorSystem::cabinMovementStarted,
-            this, &MainWindow::onCabinMovementStarted);
     connect(system, &ElevatorSystem::currentFloorChanged,
             this, &MainWindow::onCurrentFloorChanged);
     connect(system, &ElevatorSystem::targetFloorChanged,
@@ -214,11 +212,6 @@ void MainWindow::appendLog(const QString &message)
     ui->eventLogEdit->appendPlainText(QString("[%1] %2").arg(time, message));
 }
 
-void MainWindow::onCabinMovementStarted(int destinationFloor)
-{
-    shaftView->animateCabinToFloor(destinationFloor);
-}
-
 void MainWindow::onCurrentFloorChanged(int floor)
 {
     ui->currentFloorValueLabel->setText(QString::number(floor));
@@ -242,7 +235,6 @@ void MainWindow::onCabinStateChanged(CabinState state)
 void MainWindow::onDoorStateChanged(DoorState state)
 {
     ui->doorsStateValueLabel->setText(doorStateText(state));
-    shaftView->animateDoors(state);
 }
 
 QString MainWindow::directionText(Direction direction) const

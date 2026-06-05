@@ -1,5 +1,6 @@
 #include "elevatorcabin.h"
 #include "floorcatalog.h"
+#include "shaftview.h"
 
 ElevatorCabin::ElevatorCabin(QObject *parent)
     : QObject(parent),
@@ -29,6 +30,11 @@ bool ElevatorCabin::isMoving() const
     return cabinState == CabinState::Moving;
 }
 
+void ElevatorCabin::setShaftView(ShaftView* view)
+{
+    shaftView = view;
+}
+
 void ElevatorCabin::move(Direction direction)
 {
     if (!canMove(direction)) {
@@ -39,7 +45,9 @@ void ElevatorCabin::move(Direction direction)
     setState(CabinState::Moving);
     emit logMessage("Cabin started moving");
     moveTimer.start(MoveTimeMs);
-    emit movementStarted(nextFloor());
+    if (shaftView) {
+        shaftView->animateCabinToPosition(nextFloor(), MoveTimeMs);
+    }
 }
 
 void ElevatorCabin::stop()
@@ -119,7 +127,7 @@ void ElevatorCabin::arriveToNextFloor()
                     .arg(FloorCatalog::numberFromPosition(currentFloorNumber)));
     emit floorReached(currentFloorNumber);
 
-    if (isMoving() && canMove(cabinDirection)) {
-        emit movementStarted(nextFloor());
+    if (isMoving() && canMove(cabinDirection) && shaftView) {
+        shaftView->animateCabinToPosition(nextFloor(), MoveTimeMs);
     }
 }

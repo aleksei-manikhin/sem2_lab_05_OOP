@@ -27,6 +27,12 @@ ControllerState ElevatorController::state() const
     return controllerState;
 }
 
+void ElevatorController::setShaftView(ShaftView* view)
+{
+    cabin->setShaftView(view);
+    doors->setShaftView(view);
+}
+
 void ElevatorController::addCabinRequest(int floor)
 {
     addRequest(ElevatorRequest(floor, RequestType::Cabin, Direction::Idle));
@@ -113,8 +119,6 @@ void ElevatorController::writeDebugLog(const QString &message)
 
 void ElevatorController::connectParts()
 {
-    connect(cabin, &ElevatorCabin::movementStarted,
-            this, &ElevatorController::cabinMovementStarted);
     connect(cabin, &ElevatorCabin::floorReached, this, &ElevatorController::onCabinReachedFloor);
     connect(cabin, &ElevatorCabin::floorChanged, this, &ElevatorController::currentFloorChanged);
     connect(cabin, &ElevatorCabin::stateChanged, this, &ElevatorController::cabinStateChanged);

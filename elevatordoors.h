@@ -4,7 +4,10 @@
 #include "elevatorenums.h"
 
 #include <QObject>
+#include <QPointer>
 #include <QTimer>
+
+class ShaftView;
 
 class ElevatorDoors : public QObject
 {
@@ -17,9 +20,7 @@ public:
     bool isClosed() const;
     bool isOpen() const;
 
-    static constexpr int OpeningTimeMs = 900;
-    static constexpr int OpenedTimeMs = 1200;
-    static constexpr int ClosingTimeMs = 900;
+    void setShaftView(ShaftView* view);
 
 public slots:
     void open();
@@ -47,7 +48,11 @@ private:
     QTimer openingTimer;
     QTimer openedTimer;
     QTimer closingTimer;
+    QPointer<ShaftView> shaftView;
 
+    static constexpr int OpeningTimeMs = 900;
+    static constexpr int OpenedTimeMs = 1200;
+    static constexpr int ClosingTimeMs = 900;
 };
 
 #endif // ELEVATORDOORS_H

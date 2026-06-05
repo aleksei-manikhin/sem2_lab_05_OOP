@@ -1,4 +1,5 @@
 #include "elevatordoors.h"
+#include "shaftview.h"
 
 #include <QDebug>
 
@@ -27,6 +28,11 @@ bool ElevatorDoors::isClosed() const
 bool ElevatorDoors::isOpen() const
 {
     return doorState == DoorState::Open;
+}
+
+void ElevatorDoors::setShaftView(ShaftView* view)
+{
+    shaftView = view;
 }
 
 void ElevatorDoors::open()
@@ -97,6 +103,9 @@ void ElevatorDoors::startOpening()
 {
     stopDoorTimers();
     setState(DoorState::Opening);
+    if (shaftView) {
+        shaftView->animateDoors(DoorState::Opening, OpeningTimeMs);
+    }
     emit logMessage("Doors are opening");
     openingTimer.start(OpeningTimeMs);
 }
@@ -105,6 +114,9 @@ void ElevatorDoors::startClosing()
 {
     stopDoorTimers();
     setState(DoorState::Closing);
+    if (shaftView) {
+        shaftView->animateDoors(DoorState::Closing, ClosingTimeMs);
+    }
     emit logMessage("Doors are closing");
     closingTimer.start(ClosingTimeMs);
 }

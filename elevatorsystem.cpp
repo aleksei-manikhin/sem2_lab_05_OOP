@@ -23,6 +23,11 @@ ControllerState ElevatorSystem::state() const
     return controller->state();
 }
 
+void ElevatorSystem::setShaftView(ShaftView* view)
+{
+    controller->setShaftView(view);
+}
+
 void ElevatorSystem::requestCabinFloor(int floor)
 {
     controller->addCabinRequest(FloorCatalog::positionFromNumber(floor));
@@ -46,11 +51,6 @@ void ElevatorSystem::requestDoorsClose()
 void ElevatorSystem::requestCabinCancellation()
 {
     controller->cancelCabinRequests();
-}
-
-void ElevatorSystem::onControllerCabinMovementStarted(int position)
-{
-    emit cabinMovementStarted(FloorCatalog::numberFromPosition(position));
 }
 
 void ElevatorSystem::onControllerCurrentFloorChanged(int position)
@@ -77,8 +77,6 @@ void ElevatorSystem::onControllerFloorCallLightChanged(int position,
 
 void ElevatorSystem::connectController()
 {
-    connect(controller, &ElevatorController::cabinMovementStarted,
-            this, &ElevatorSystem::onControllerCabinMovementStarted);
     connect(controller, &ElevatorController::currentFloorChanged,
             this, &ElevatorSystem::onControllerCurrentFloorChanged);
     connect(controller, &ElevatorController::targetFloorChanged,

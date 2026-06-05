@@ -9,6 +9,8 @@
 #include <QObject>
 #include <QString>
 
+class ShaftView;
+
 class ElevatorController : public QObject
 {
     Q_OBJECT
@@ -20,6 +22,8 @@ public:
     Direction direction() const;
     ControllerState state() const;
 
+    void setShaftView(ShaftView* view);
+
 public slots:
     void addCabinRequest(int floor);
     void addFloorCall(int floor, Direction direction);
@@ -28,7 +32,6 @@ public slots:
     void cancelCabinRequests();
 
 signals:
-    void cabinMovementStarted(int destinationFloor);
     void cabinButtonLightChanged(int floor, bool enabled);
     void floorCallLightChanged(int floor, Direction direction, bool enabled);
     void currentFloorChanged(int floor);
