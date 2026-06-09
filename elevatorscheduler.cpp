@@ -104,7 +104,7 @@ std::vector<ElevatorRequest> ElevatorScheduler::getRequests() const
 
 bool ElevatorScheduler::isValidFloor(int floor) const
 {
-    return FloorCatalog::isKnownPosition(floor);
+    return floor >= FloorCatalog::FirstPosition && floor <= FloorCatalog::LastPosition;
 }
 
 bool ElevatorScheduler::isValidRequest(const ElevatorRequest &request) const
@@ -118,11 +118,11 @@ bool ElevatorScheduler::isValidRequest(const ElevatorRequest &request) const
     }
 
     if (request.getDirection() == Direction::Up) {
-        return request.getFloor() < FloorCatalog::maxPosition();
+        return request.getFloor() < FloorCatalog::LastPosition;
     }
 
     if (request.getDirection() == Direction::Down) {
-        return request.getFloor() > FloorCatalog::minPosition();
+        return request.getFloor() > FloorCatalog::FirstPosition;
     }
 
     return false;
@@ -153,7 +153,7 @@ bool ElevatorScheduler::hasRequestsAhead(int currentFloor, Direction direction) 
 int ElevatorScheduler::nearestAnyFloor(int currentFloor) const
 {
     int nearest = currentFloor;
-    int bestDistance = FloorCatalog::positionCount();
+    int bestDistance = FloorCatalog::FloorCount;
 
     for (const ElevatorRequest &request : requests) {
         const int distance = qAbs(request.getFloor() - currentFloor);
@@ -169,7 +169,7 @@ int ElevatorScheduler::nearestAnyFloor(int currentFloor) const
 int ElevatorScheduler::nearestFloorInDirection(int currentFloor, Direction direction) const
 {
     int nearest = currentFloor;
-    int bestDistance = FloorCatalog::positionCount();
+    int bestDistance = FloorCatalog::FloorCount;
 
     for (const ElevatorRequest &request : requests) {
         if (request.isAheadOf(currentFloor, direction)) {

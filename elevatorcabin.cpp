@@ -4,7 +4,7 @@
 
 ElevatorCabin::ElevatorCabin(QObject *parent)
     : QObject(parent),
-      currentFloorNumber(FloorCatalog::minPosition())
+      currentFloorNumber(FloorCatalog::FirstPosition)
 {
     moveTimer.setSingleShot(false);
     connect(&moveTimer, &QTimer::timeout, this, &ElevatorCabin::onMoveTick);
@@ -76,11 +76,11 @@ void ElevatorCabin::onMoveTick()
 bool ElevatorCabin::canMove(Direction direction) const
 {
     if (direction == Direction::Up) {
-        return currentFloorNumber < FloorCatalog::maxPosition();
+        return currentFloorNumber < FloorCatalog::LastPosition;
     }
 
     if (direction == Direction::Down) {
-        return currentFloorNumber > FloorCatalog::minPosition();
+        return currentFloorNumber > FloorCatalog::FirstPosition;
     }
 
     return false;

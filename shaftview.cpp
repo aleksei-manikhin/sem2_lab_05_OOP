@@ -79,12 +79,12 @@ void ShaftView::playPendingDoorAnimation()
 QRect ShaftView::cabinGeometryForPosition(int position) const
 {
     const QRect current = cabinFrame->geometry();
-    const int safeFloor = qBound(FloorCatalog::minPosition(),
+    const int safeFloor = qBound(FloorCatalog::FirstPosition,
                                  position,
-                                 FloorCatalog::maxPosition());
+                                 FloorCatalog::LastPosition);
     const int floorHeight = 112;
     const int baseY = 456;
-    const int y = baseY - (safeFloor - FloorCatalog::minPosition()) * floorHeight;
+    const int y = baseY - (safeFloor - FloorCatalog::FirstPosition) * floorHeight;
 
     return QRect(current.x(), y, current.width(), current.height());
 }

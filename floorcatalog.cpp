@@ -1,46 +1,29 @@
 #include "floorcatalog.h"
 
-int FloorCatalog::minPosition()
-{
-    return FirstPosition;
-}
-
-int FloorCatalog::maxPosition()
-{
-    return LastPosition;
-}
-
-int FloorCatalog::positionCount()
-{
-    return FloorCount;
-}
-
 int FloorCatalog::numberFromPosition(int position)
 {
-    if (!isKnownPosition(position)) {
-        return minPosition();
+    int floorNumber = FirstFloorNumber + position - FirstPosition;
+    if (FirstFloorNumber < 0 && floorNumber >= 0) {
+        ++floorNumber;
     }
 
-    return FloorNumbers[position - FirstPosition];
+    if (position < FirstPosition || position > LastPosition) {
+        floorNumber = FirstFloorNumber;
+    }
+
+    return floorNumber;
 }
 
 int FloorCatalog::positionFromNumber(int floorNumber)
 {
-    for (int i = 0; i < FloorCount; ++i) {
-        if (FloorNumbers[i] == floorNumber) {
-            return i + FirstPosition;
-        }
+    int position = floorNumber - FirstFloorNumber + FirstPosition;
+    if (FirstFloorNumber < 0 && floorNumber > 0) {
+        --position;
     }
 
-    return minPosition();
-}
+    if (floorNumber == 0 || position < FirstPosition || position > LastPosition) {
+        position = FirstPosition;
+    }
 
-bool FloorCatalog::isKnownPosition(int position)
-{
-    return position >= minPosition() && position <= maxPosition();
-}
-
-bool FloorCatalog::isKnownFloorNumber(int floorNumber)
-{
-    return numberFromPosition(positionFromNumber(floorNumber)) == floorNumber;
+    return position;
 }

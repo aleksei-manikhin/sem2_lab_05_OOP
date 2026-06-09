@@ -7,7 +7,7 @@ ElevatorController::ElevatorController(QObject *parent)
     : QObject(parent),
       cabin(new ElevatorCabin(this)),
       doors(new ElevatorDoors(this)),
-      targetFloor(FloorCatalog::minPosition())
+      targetFloor(FloorCatalog::FirstPosition)
 {
     connectParts();
 }
@@ -224,11 +224,11 @@ void ElevatorController::stopForCancellation()
 
 int ElevatorController::nearestStopFloor() const
 {
-    if (currentDirection == Direction::Up && currentFloor() < FloorCatalog::maxPosition()) {
+    if (currentDirection == Direction::Up && currentFloor() < FloorCatalog::LastPosition) {
         return currentFloor() + 1;
     }
 
-    if (currentDirection == Direction::Down && currentFloor() > FloorCatalog::minPosition()) {
+    if (currentDirection == Direction::Down && currentFloor() > FloorCatalog::FirstPosition) {
         return currentFloor() - 1;
     }
 
